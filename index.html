@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>GKARAS ROBOTICS -- SIMPLY LOVELY</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+/* ========== ORIGINAL STYLES (unchanged) ========== */
+body{
+ font-family:Arial;
+ margin:20px;
+ background: #3a5f3a;
+ color: #f0f0e0;
+}
+.panel {
+ background: #4f7a4f;
+ padding: 20px;
+ margin-bottom: 20px;
+ border-radius: 10px;
+ border: 2px solid #6b8e6b;
+}
+button {
+ background: #2a472a;
+ color: #f0f0e0;
+ border: 2px solid #6b8e6b;
+ padding: 8px 16px;
+ margin: 5px;
+ cursor: pointer;
+ border-radius: 6px;
+ font-size: 1em;
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+}
+button:hover {
+ background: #1e3b1e;
+}
+button.danger {
+ background: #8b3a3a;
+ border-color: #b36b6b;
+}
+button.danger:hover {
+ background: #6b2a2a;
+}
+button:disabled {
+ opacity: 0.5;
+ cursor: not-allowed;
+}
+input, select {
+ padding: 8px;
+ margin: 5px;
+ border: 2px solid #2a472a;
+ border-radius: 4px;
+ background: #f0f7e8;
+ color: #1e2f1e;
+ font-size: 1em;
+}
+.warning-text {
+ color: #ff9999;
+ margin-left: 10px;
+ font-size: 0.9em;
+}
+.tab {
+ display: inline-block;
+ padding: 10px 20px;
+ background: #2a472a;
+ color: #f5f5dc;
+ border: 2px solid #6b8e6b;
+ border-bottom: none;
+ border-radius: 8px 8px 0 0;
+ cursor: pointer;
+ margin-right: 5px;
+}
+.tab.active {
+ background: #4f7a4f;
+ font-weight: bold;
+}
+.tab-content {
+ border: 2px solid #6b8e6b;
+ padding: 20px;
+ border-radius: 0 8px 8px 8px;
+ background: #4f7a4f;
+ margin-top: -2px;
+}
+.subtab {
+ display: inline-block;
+ padding: 5px 15px;
+ background: #3a6b3a;
+ color: #f0f0e0;
+ border: 1px solid #6b8e6b;
+ border-bottom: none;
+ border-radius: 6px 6px 0 0;
+ cursor: pointer;
+ margin-right: 3px;
+ font-size: 0.9em;
+}
+.subtab.active {
+ background: #5f8b5f;
+ font-weight: bold;
+ border-bottom: 1px solid #5f8b5f;
+}
+.subtab-content {
+ border: 1px solid #6b8e6b;
+ padding: 15px;
+ border-radius: 0 6px 6px 6px;
+ background: #5f8b5f;
+ margin-top: -1px;
+}
+.list-item {
+ background: #5f8b5f;
+ padding: 8px;
+ margin: 5px 0;
+ border-radius: 4px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+table{
+ border-collapse:collapse;
+ margin-top:20px;
+ font-size:0.9em;
+ background: #f5f7f0;
+ color: #1e2f1e;
+ width: 100%;
+ margin-bottom: 25px;
+}
+th, td{
+ border:1px solid #2a472a;
+ padding:5px;
+ text-align:center;
+}
+th {
+ background-color:#b0c4a0;
+}
+.holiday-col {background-color:#ffcccc;}
+.leave-cell {background-color:#e0e0e0 !important;}
+.group-header {
+ font-size: 1.3em;
+ font-weight: bold;
+ text-align: left;
+ padding: 8px;
+ border: 2px solid #2a472a;
+ border-bottom: none;
+}
+.missing-row {
+ background-color: #ffcc99;
+ font-weight: bold;
+ color: #8b0000;
+}
+.missing-cell {
+ text-align: left;
+ padding-left: 10px;
+}
+.order-item {
+ display: flex;
+ align-items: center;
+ background: #5f8b5f;
+ padding: 8px;
+ margin: 5px 0;
+ border-radius: 4px;
+}
+.order-item span {
+ flex: 1;
+ margin-left: 10px;
+}
+.order-item button {
+ margin: 0 2px;
+}
+.order-item input {
+ width: 60px;
+ margin-right: 10px;
+}
+.absence-type-select {
+ margin-right: 5px;
+}
+.message-box {
+ background: #2a472a;
+ color: #f5f5dc;
+ padding: 8px;
+ margin-top: 10px;
+ border-radius: 4px;
+ white-space: pre-wrap;
+}
+.help-box {
+ background: #2a472a;
+ color: #f5f5dc;
+ padding: 10px;
+ margin-bottom: 15px;
+ border-radius: 6px;
+ border-left: 5px solid #ffcc00;
+ font-size: 0.95em;
+}
+.help-box h4 {
+ margin: 0 0 5px 0;
+ color: #ffcc00;
+}
+.tooltip-icon {
+ display: inline-block;
+ width: 18px;
+ height: 18px;
+ background: #ffcc00;
+ color: #1e2f1e;
+ border-radius: 50%;
+ text-align: center;
+ font-weight: bold;
+ margin-left: 5px;
+ cursor: help;
+}
+.lang-toggle {
+ float: right;
+ margin-left: 20px;
+}
+.next-button {
+ margin-top: 15px;
+ text-align: right;
+}
+.edit-input {
+ width: 150px;
+ margin-right: 5px;
+}
+.drag-table {
+ width: 100%;
+ background: #5f8b5f;
+ color: #1e2f1e;
+}
+.drag-table th {
+ background-color: #b0c4a0;
+}
+#importArea {
+ margin-top: 15px;
+ border-top: 1px solid #6b8e6b;
+ padding-top: 10px;
+}
+button, .tab, .subtab, .next-button button, .danger, .list-item button, .order-item button, #membersTable button {
+  transition: all 0.3s ease, box-shadow 0.2s ease;
+}
+button:hover, .tab:hover, .subtab:hover, .next-button button:hover, .danger:hover, .list-item button:hover, .order-item button:hover, #membersTable button:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 0 12px 2px rgba(255, 204, 0, 0.8);
+  transform: translateY(-2px);
+}
+h1, h2 {
+  transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+h1:hover, h2:hover {
+  text-shadow: 0 0 15px #ffcc00, 0 0 25px #ffaa00;
+  transform: scale(1.02);
+  letter-spacing: 1px;
+}
+img {
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+img:hover {
+  filter: drop-shadow(0 0 15px #ffcc00) brightness(1.05);
+  transform: scale(1.02) rotate(1deg);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+@keyframes flyFromTopLeft {
+  0% { transform: translate(-100vw, -100vh); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes flyFromTopRight {
+  0% { transform: translate(100vw, -100vh); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes flyFromBottomLeft {
+  0% { transform: translate(-100vw, 100vh); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes flyFromBottomRight {
+  0% { transform: translate(100vw, 100vh); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+.animate-tl {
+  animation: flyFromTopLeft 2s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+.animate-tr {
+  animation: flyFromTopRight 2s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+.animate-bl {
+  animation: flyFromBottomLeft 2s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+.animate-br {
+  animation: flyFromBottomRight 2s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+.animate-tl, .animate-tr, .animate-bl, .animate-br {
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-tl, .animate-tr, .animate-bl, .animate-br {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  button:hover, .tab:hover, h1:hover, h2:hover, img:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div style="text-align: center;">
+<h1 style="color:#f5f5dc;">POWER BY GKARAS ROBOTICS</h1>
+<HR></HR><br>
+</div>
+<div style="text-align: center;">
+<h2 style="color:#f5f5dc;">I AM THE WEAPON</h2>
+<HR></HR><br>
+</div>
+<div style="text-align: center;">
+<img src="24ema.png" width="500" height="350" style="border-radius: 30px;" alt="">
+</div>
+
+<!-- Πάνελ με έτος, μήνα, extra αργίες -->
+<div class="panel">
+<div style="display: flex; align-items: center; flex-wrap: wrap;">
+<label data-i18n="year">Έτος</label> <input type="number" id="year" value="2026" style="width:100px;" onchange="onYearMonthChange()">
+<label data-i18n="month">Μήνας</label>
+<select id="month" style="width:120px;" onchange="onYearMonthChange()"></select>
+<label data-i18n="extraHolidays">Extra αργίες</label> <input type="text" id="extraHolidays" placeholder="π.χ. 1,6,25" style="width:200px;">
+<button onclick="clearAllData()" class="danger" data-i18n="clearAll">Καθαρισμός Όλων</button>
+<button class="lang-toggle" onclick="toggleLanguage()">English</button>
+</div>
+</div>
+
+<!-- Καρτέλες -->
+<div id="tabContainer">
+<span class="tab active" onclick="showTab(1)" data-i18n="tab1">1. Ομάδες & Μέλη</span>
+<span class="tab" onclick="showTab(2)" data-i18n="tab2">2. Ημέρες Λειτουργίας</span>
+<span class="tab" onclick="showTab(3)" data-i18n="tab3">3. Όρια Μελών</span>
+<span class="tab" onclick="showTab(4)" data-i18n="tab4">4. Απουσίες</span>
+<span class="tab" onclick="showTab(5)" data-i18n="tab5">5. Δημιουργία & Στατιστικά</span>
+<span class="tab" onclick="showTab(6)" data-i18n="tab6">6. Σειρά Εμφάνισης</span>
+<span class="tab" onclick="showTab(7)" data-i18n="tab7">7. Επεξεργασία Υπηρεσιών</span>
+<span class="tab" onclick="showTab(8)" data-i18n="tab8">8. Αρχαιότητα</span>
+<span class="tab" onclick="showTab(9)" data-i18n="tab9">9. Αναφορά Απουσιών</span>
+<span class="tab" onclick="showTab(10)" data-i18n="tab10">10. Αργίες</span>
+<span class="tab" onclick="showTab(11)" data-i18n="tab11">11. Επίσημες Αργίες</span>
+<span class="tab" onclick="showTab(12)" data-i18n="tab12">12. Ρυθμίσεις Δικαιοσύνης</span>
+</div>
+
+<!-- Καρτέλα 1 (παραμένει ίδια) -->
+<div id="tab1" class="tab-content">
+<div class="help-box" data-i18n-html="help1">
+<h4>Οδηγίες για Ομάδες & Μέλη</h4>
+<p><strong>Ομάδες:</strong> Προσθέστε ομάδες (π.χ. "Α", "Β") χρησιμοποιώντας το πεδίο και το κουμπί. Κάθε ομάδα μπορεί να διαγραφεί.</p>
+<p><strong>Μέλη:</strong> Προσθέστε μέλη (ονόματα) με τον ίδιο τρόπο. Μπορείτε να επεξεργαστείτε το όνομα κάθε μέλους πατώντας το κουμπί "Επεξεργασία".</p>
+<p><strong>Συσχετίσεις:</strong> Αντιστοιχίστε μέλη σε ομάδες. Αν ένα μέλος ήδη ανήκει στην επιλεγμένη ομάδα, η επιλογή γίνεται κόκκινη και το κουμπί απενεργοποιείται. Επίσης, εμφανίζεται ένας πίνακας με τα τρέχοντα μέλη της επιλεγμένης ομάδας.</p>
+<p><em>Παράδειγμα:</em> Προσθέστε ομάδα "Α" και μέλος "Γιάννης". Στη συνέχεια, στην υποκαρτέλα "Συσχετίσεις", επιλέξτε "Α" και "Γιάννης" και πατήστε Προσθήκη.</p>
+</div>
+<div>
+<span class="subtab active" onclick="showSubTab(1,1)" data-i18n="subtab1_1">Ομάδες</span>
+<span class="subtab" onclick="showSubTab(1,2)" data-i18n="subtab1_2">Μέλη</span>
+<span class="subtab" onclick="showSubTab(1,3)" data-i18n="subtab1_3">Συσχετίσεις</span>
+</div>
+<div id="subtab1_1" class="subtab-content">
+<h3 data-i18n="groupMgmt">Διαχείριση Ομάδων</h3>
+<div><input type="text" id="newGroupName" placeholder="" data-i18n-placeholder="groupPlaceholder"><button onclick="addGroup()" data-i18n="addGroup">Προσθήκη Ομάδας</button></div>
+<div id="groupsList"></div>
+<div class="next-button"><button onclick="showTab(2)" data-i18n="next">Επόμενο →</button></div>
+</div>
+<div id="subtab1_2" class="subtab-content" style="display:none;">
+<h3 data-i18n="memberMgmt">Διαχείριση Μελών</h3>
+<div><input type="text" id="newMemberName" placeholder="" data-i18n-placeholder="memberPlaceholder"><button onclick="addMember()" data-i18n="addMember">Προσθήκη Μέλους</button></div>
+<table id="membersTable" class="drag-table"><thead> <tr><th>#</th><th>Μέλος</th><th></th></tr> </thead><tbody></tbody> </table>
+<div id="importArea">
+  <h4>Εισαγωγή μελών από εξωτερικό αρχείο</h4>
+  <button onclick="importMembersFromExcel()"><i class="fas fa-file-excel"></i> Εισαγωγή από Excel</button>
+  <button onclick="showPasteMembersDialog()"><i class="fas fa-clipboard"></i> Επικόλληση ονομάτων</button>
+  <div id="pasteMembersArea" style="display: none; margin-top: 10px;">
+    <textarea id="pasteNames" rows="5" cols="30" placeholder="Επικολλήστε ονόματα (ένα ανά γραμμή)"></textarea><br>
+    <button onclick="addPastedMembers()">Προσθήκη</button>
+    <button onclick="hidePasteArea()">Ακύρωση</button>
+  </div>
+</div>
+<div class="next-button"><button onclick="showSubTab(1,3)" data-i18n="next">Επόμενο →</button></div>
+</div>
+<div id="subtab1_3" class="subtab-content" style="display:none;">
+<h3 data-i18n="associate">Αντιστοίχηση Μελών σε Ομάδες</h3>
+<div style="display: flex; align-items: center; flex-wrap: wrap;">
+<select id="groupSelectMembership" style="margin-right:10px;"></select>
+<select id="memberSelectMembership" style="margin-right:10px;"></select>
+<button id="addMemberToGroupBtn" onclick="addMemberToGroup()" data-i18n="addToGroup">Προσθήκη Μέλους στην Ομάδα</button>
+<span id="membershipWarning" class="warning-text" style="display:none;" data-i18n="alreadyInGroup">⚠️ Το μέλος ανήκει ήδη στην ομάδα</span>
+</div>
+<div id="groupMembershipList" style="margin-top:15px;"></div>
+<div style="margin-top:20px;">
+<h4 data-i18n="currentGroupMembers">Μέλη της επιλεγμένης ομάδας:</h4>
+<div id="currentGroupMembersDisplay"></div>
+</div>
+<div class="next-button"><button onclick="showTab(2)" data-i18n="next">Επόμενο →</button></div>
+</div>
+</div>
+
+<!-- Καρτέλα 2 (παραμένει ίδια) -->
+<div id="tab2" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help2">
+<h4>Οδηγίες για Ημέρες Λειτουργίας</h4>
+<p>Εδώ ορίζετε ποιες ημέρες του μήνα λειτουργεί κάθε ομάδα. Οι ημέρες αποθηκεύονται μόνιμα. Μπορείτε να χρησιμοποιήσετε:</p>
+<ul><li><code>all</code> -- όλες οι ημέρες</li><li><code>none</code> -- καμία ημέρα</li><li>συνδυασμό, π.χ. <code>1-5,7,10-12</code> (ημέρες 1 έως 5, 7, και 10 έως 12)</li></ul>
+<p><em>Παράδειγμα:</em> Επιλέξτε ομάδα "Α", γράψτε "1-10,15,20-25" και πατήστε Καταχώρηση.</p>
+</div>
+<h3 data-i18n="opDays">Ημέρες Λειτουργίας Ομάδων (μόνιμη αποθήκευση)</h3>
+<div><select id="groupSelectOpDays"></select><input type="text" id="opDaysInput" placeholder="π.χ. all, none, 1-5,7,10-12"><button onclick="setOpDays()" data-i18n="submitOpDays">Καταχώρηση</button><button onclick="setAllDays()" data-i18n="allDaysBtn">Όλες οι ημέρες</button></div>
+<div id="opDaysList"></div>
+<div class="next-button"><button onclick="showTab(3)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 3 (παραμένει ίδια) -->
+<div id="tab3" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help3">
+<h4>Οδηγίες για Όρια Μελών</h4>
+<p>Ορίστε το μέγιστο πλήθος υπηρεσιών για κάθε μέλος. Τα όρια αποθηκεύονται μόνιμα. Μπορείτε να επεξεργαστείτε κάθε όριο ξεχωριστά και να το αποθηκεύσετε.</p>
+</div>
+<h3 data-i18n="limits">Όρια Υπηρεσιών Μελών</h3>
+<div id="limitsTableContainer"></div>
+<div class="next-button"><button onclick="showTab(4)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 4: Απουσίες με επιλογή έτους/μήνα -->
+<div id="tab4" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help4">
+<h4>Οδηγίες για Απουσίες (ανά μήνα)</h4>
+<p>Καταχωρήστε ημέρες απουσίας για κάθε μέλος, με διαφορετικούς τύπους. Επιλέξτε πρώτα έτος και μήνα, στη συνέχεια προσθέστε απουσίες. Οι απουσίες αποθηκεύονται ξεχωριστά για κάθε μήνα.</p>
+</div>
+<h3>Διαχείριση Απουσιών</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+  <label>Έτος: <input type="number" id="absenceYear" value="2026" style="width:80px;"></label>
+  <label>Μήνας: <select id="absenceMonth"></select></label>
+  <button onclick="loadAbsencesForMonth()">Φόρτωση απουσιών</button>
+</div>
+<div>
+<select id="memberSelectAbsence"></select>
+<select id="absenceTypeSelect" class="absence-type-select">
+<option value="ΑΔΕΙΑ">ΑΔΕΙΑ</option><option value="ΕΥ">ΕΥ</option><option value="ΦΠ">ΦΠ</option><option value="ΝΟΣ">ΝΟΣ</option><option value="ΣΧΟΛΕΙΟ">ΣΧΟΛΕΙΟ</option><option value="ΠΑΡΕΛΑΣΗ">ΠΑΡΕΛΑΣΗ</option><option value="ΙΠΒΑΞ">ΙΠΒΑΞ</option><option value="ΚΕΞ">ΚΕΞ</option><option value="ΛΑΦΑ">ΛΑΦΑ</option><option value="ΣΠΑ">ΣΠΑ</option>
+</select>
+<input type="text" id="absenceInput" placeholder="π.χ. 1-5,7,10-12">
+<button onclick="addAbsence()" data-i18n="addAbsence">Προσθήκη Απουσίας</button>
+</div>
+<div id="absencesList"></div>
+<div class="next-button"><button onclick="showTab(5)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 5: με νέα κουμπιά -->
+<div id="tab5" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help5">
+<h4>Οδηγίες για Δημιουργία & Στατιστικά</h4>
+<p>Πατήστε <strong>Δημιουργία Προγράμματος</strong> ή <strong>Ανανέωση Υπηρεσιών</strong> για να παραχθεί το πρόγραμμα υπηρεσιών για τον επιλεγμένο μήνα, με βάση όλες τις προηγούμενες ρυθμίσεις. Τα αποτελέσματα εμφανίζονται σε πίνακες ανά ομάδα, με χρωματική κωδικοποίηση (αργίες, άδειες, υπηρεσίες).</p>
+<p>Στη συνέχεια, μπορείτε να εξάγετε το πρόγραμμα σε Excel (XLSX) με το κουμπί Export, ή να το επεξεργαστείτε άμεσα με το κουμπί <strong>Επεξεργασία Υπηρεσιών</strong> (οδηγεί στην καρτέλα 7).</p>
+<p>Στο κάτω μέρος εμφανίζονται τα στατιστικά του μήνα και ένας συγκεντρωτικός πίνακας μελών με όλες τις υπηρεσίες (ταξινομημένος κατά αρχαιότητα), καθώς και ένας αναλυτικός πίνακας όλων των μελών ανά ημέρα.</p>
+<p>Στην ενότητα <strong>Ετήσια Στατιστικά</strong> μπορείτε να δείτε συγκεντρωτικά στοιχεία για όλους τους μήνες ενός έτους (τα δεδομένα αποθηκεύονται αυτόματα). Με το κουμπί <strong>Επεξεργασία Στατιστικών Μήνα</strong> μπορείτε να διαγράψετε μήνες ή να αλλάξετε χειροκίνητα τις υπηρεσίες ανά μέλος.</p>
+</div>
+<h3 data-i18n="generate">Δημιουργία Προγράμματος & Ετήσια Στατιστικά</h3>
+<button onclick="generate()" id="generateBtn" data-i18n="generateBtn">Δημιουργία Προγράμματος</button>
+<button onclick="generate()" id="refreshBtn">🔄 Ανανέωση Υπηρεσιών</button>
+<button onclick="exportToXLSX()" id="exportBtn" data-i18n="exportBtn">Export XLSX</button>
+<button onclick="showTab(7)" id="editScheduleBtn" data-i18n="editSchedule">Επεξεργασία Υπηρεσιών</button>
+<button onclick="loadLastSavedSchedule()" id="loadLastBtn"><i class="fas fa-history"></i> Επαναφορά τελευταίου αποθηκευμένου</button>
+<hr>
+<h4 data-i18n="yearlyStats">Ετήσια Στατιστικά</h4>
+<label data-i18n="year">Έτος</label> <input type="number" id="statsYear" value="2026" style="width:100px;"> 
+<button onclick="showYearlyStats()" data-i18n="showYearly">Εμφάνιση Ετήσιων Στατιστικών</button>
+<button onclick="showEditYearlyStats()">✏️ Επεξεργασία Στατιστικών Μήνα</button>
+<div id="yearlyStatsTable"></div>
+<div id="yearlyEditPanel" style="display:none; margin-top:20px;"></div>
+<hr>
+<div id="table"></div>
+<div class="next-button"><button onclick="showTab(6)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 6 (παραμένει ίδια) -->
+<div id="tab6" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help6">
+<h4>Οδηγίες για Σειρά Εμφάνισης</h4>
+<p>Εδώ μπορείτε να αλλάξετε τη σειρά εμφάνισης των ομάδων και των μελών μέσα σε κάθε ομάδα. Χρησιμοποιήστε τα βελάκια ή σύρετε τις γραμμές.</p>
+</div>
+<h3 data-i18n="groupOrder">Σειρά Εμφάνισης Ομάδων</h3><div id="groupOrderList"></div>
+<h3 data-i18n="memberOrder">Σειρά Εμφάνισης Μελών ανά Ομάδα</h3><div><select id="orderGroupSelect"></select> <button onclick="loadGroupOrder()" data-i18n="loadOrder">Φόρτωση σειράς</button></div>
+<div id="orderListContainer"></div>
+<div class="next-button"><button onclick="showTab(7)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 7 (παραμένει ίδια) -->
+<div id="tab7" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help7">
+<h4>Οδηγίες για Επεξεργασία Υπηρεσιών</h4>
+<p>Σε αυτή την καρτέλα μπορείτε να κάνετε μη αυτόματες αλλαγές στο ήδη δημιουργημένο πρόγραμμα.</p>
+<ul><li><strong>Αμοιβαία Αλλαγή:</strong> Ανταλλάξτε τις υπηρεσίες δύο μελών σε διαφορετικές ημέρες.</li><li><strong>Αφαίρεση Υπηρεσίας:</strong> Διαγράψτε μια υπηρεσία από ένα μέλος μια συγκεκριμένη ημέρα.</li><li><strong>Προσθήκη Υπηρεσίας:</strong> Προσθέστε μια νέα υπηρεσία για ένα μέλος σε μια ομάδα και ημέρα.</li></ul>
+</div>
+<div><span class="subtab active" onclick="showSubTab(7,1)" data-i18n="subtab7_1">Αμοιβαία Αλλαγή</span><span class="subtab" onclick="showSubTab(7,2)" data-i18n="subtab7_2">Αφαίρεση Υπηρεσίας</span><span class="subtab" onclick="showSubTab(7,3)" data-i18n="subtab7_3">Προσθήκη Υπηρεσίας</span></div>
+<div id="subtab7_1" class="subtab-content"><h3 data-i18n="swapTitle">Αμοιβαία Αλλαγή Υπηρεσίας</h3><div><label data-i18n="member1">Μέλος 1:</label> <select id="swapMember1"></select> <label data-i18n="day">Ημέρα:</label> <input type="number" id="swapDay1" min="1" max="31"><br><label data-i18n="member2">Μέλος 2:</label> <select id="swapMember2"></select> <label data-i18n="day">Ημέρα:</label> <input type="number" id="swapDay2" min="1" max="31"><br><button onclick="checkSwap()" data-i18n="check">Έλεγχος</button><button onclick="applySwap()" disabled id="applySwapBtn" data-i18n="applySwap">Εφαρμογή Αλλαγής</button><div id="swapMessages" class="message-box"></div></div></div>
+<div id="subtab7_2" class="subtab-content" style="display:none;"><h3 data-i18n="removeTitle">Αφαίρεση Υπηρεσίας</h3><div><label data-i18n="member">Μέλος:</label> <select id="removeMember"></select> <label data-i18n="day">Ημέρα:</label> <input type="number" id="removeDay" min="1" max="31"><button onclick="checkRemove()" data-i18n="check">Έλεγχος</button><button onclick="applyRemove()" disabled id="applyRemoveBtn" data-i18n="remove">Αφαίρεση</button><div id="removeMessages" class="message-box"></div></div></div>
+<div id="subtab7_3" class="subtab-content" style="display:none;"><h3 data-i18n="addTitle">Προσθήκη Υπηρεσίας</h3><div><label data-i18n="member">Μέλος:</label> <select id="addMember"></select> <label data-i18n="group">Ομάδα:</label> <select id="addGroup"></select> <label data-i18n="day">Ημέρα:</label> <input type="number" id="addDay" min="1" max="31"><button onclick="checkAdd()" data-i18n="check">Έλεγχος</button><button onclick="applyAdd()" disabled id="applyAddBtn" data-i18n="add">Προσθήκη</button><div id="addMessages" class="message-box"></div></div></div>
+</div>
+
+<!-- Καρτέλα 8 (παραμένει ίδια) -->
+<div id="tab8" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help8">
+<h4>Οδηγίες για Αρχαιότητα</h4>
+<p>Εδώ ορίζετε τη σειρά αρχαιότητας όλων των μελών. Το πάνω μέρος της λίστας είναι ο αρχαιότερος. Σε περίπτωση ισοβαθμίας στα στατιστικά, επιλέγεται το μέλος με τη μικρότερη αρχαιότητα (δηλ. αυτό που βρίσκεται πιο κάτω στη λίστα). Μπορείτε να ανεβοκατεβάσετε με βελάκια ή να σύρετε τις γραμμές.</p>
+</div>
+<h3 data-i18n="seniority">Σειρά Αρχαιότητας Μελών</h3><div id="seniorityListContainer"></div>
+<div class="next-button"><button onclick="showTab(1)" data-i18n="next">Επόμενο →</button></div>
+</div>
+
+<!-- Καρτέλα 9 (παραμένει ίδια) -->
+<div id="tab9" class="tab-content" style="display:none;">
+<div class="help-box" data-i18n-html="help9">
+<h4>Αναφορά Απουσιών ανά Μήνα και Έτος</h4>
+<p>Επιλέξτε έτος για να δείτε για κάθε μέλος το πλήθος των απουσιών ανά τύπο, ανά μήνα, και συνολικά για το έτος. Εμφανίζονται δύο πίνακες: ένας για μέλη με απουσίες και ένας για μέλη χωρίς απουσίες.</p>
+</div>
+<h3 data-i18n="absenceReport">Αναφορά Απουσιών</h3>
+<label data-i18n="year">Έτος</label> <input type="number" id="reportYear" value="2026" style="width:100px;"> <button onclick="generateAbsenceReport()" data-i18n="generateReport">Δημιουργία Αναφοράς</button><div id="absenceReportTable"></div>
+</div>
+
+<!-- Καρτέλα 10 (παραμένει ίδια) -->
+<div id="tab10" class="tab-content" style="display:none;">
+<div class="help-box"><h4>Αργίες - Υπηρεσίες Μελών</h4><p>Εμφανίζονται τα μέλη που είχαν υπηρεσία σε σταθερές εθνικές αργίες (1/1, 25/3, 28/10, 25/12) και σε επιπλέον αργίες που έχουν οριστεί στο πεδίο "Extra αργίες".</p></div>
+<label>Έτος: <input type="number" id="holidayYear10" value="2026"></label><label>Μήνας: <select id="holidayMonth10"></select></label><button onclick="showOfficialHolidaysTab10()">Εμφάνιση</button><div id="holidayReport10"></div>
+</div>
+
+<!-- Καρτέλα 11 (παραμένει ίδια) -->
+<div id="tab11" class="tab-content" style="display:none;">
+<div class="help-box"><h4>Επίσημες Αργίες - Ορισμός από χρήστη</h4><p>Εισάγετε ημέρες (π.χ. 1-5,7,10-12) για έναν συγκεκριμένο μήνα/έτος. Θα εμφανιστούν τα μέλη που υπηρέτησαν αποκλειστικά αυτές τις ημέρες.</p></div>
+<label>Έτος: <input type="number" id="customHolidayYear" value="2026"></label><label>Μήνας: <select id="customHolidayMonth"></select></label><label>Ημέρες: <input type="text" id="customHolidayDays" placeholder="π.χ. 1-5,7,10-12"></label><button onclick="showCustomHolidays()">Εμφάνιση</button><div id="customHolidayReport"></div>
+</div>
+
+<!-- Καρτέλα 12: Ρυθμίσεις Δικαιοσύνης με νέα βάρη και πίνακα σκορ -->
+<div id="tab12" class="tab-content" style="display:none;">
+<div class="help-box">
+<h4>Ρυθμίσεις Δικαιοσύνης Κατανομής</h4>
+<p>Ορίστε τη βαρύτητα (βάρος) κάθε παράγοντα. Μεγαλύτερη τιμή = μεγαλύτερη σημασία.</p>
+<ul style="margin-left:20px;">
+<li><strong>Σύνολο υπηρεσιών:</strong> Όσο λιγότερες έχει κάποιος, τόσο προτιμάται.</li>
+<li><strong>Υπηρεσίες σε αργίες:</strong> Ισχύει μόνο όταν η ημέρα είναι αργία.</li>
+<li><strong>Υπηρεσίες σε καθημερινές:</strong> Ισχύει μόνο όταν η ημέρα δεν είναι αργία.</li>
+<li><strong>Πρόσφατη υπηρεσία:</strong> Τιμωρεί όσους υπηρέτησαν πρόσφατα (υψηλότερη τιμή = μεγαλύτερη αποφυγή).</li>
+<li><strong>Αρχαιότητα:</strong> Θετική τιμή = προτιμάται ο νεότερος, αρνητική = προτιμάται ο παλαιότερος.</li>
+<li><strong>Εξισορρόπηση (balance):</strong> Τιμωρεί όσους έχουν περισσότερες υπηρεσίες από τον μέσο όρο.</li>
+<li><strong>Εξισορρόπηση ορίου (limit fairness):</strong> Εξασφαλίζει ότι όσοι έχουν μεγαλύτερο όριο δεν θα μείνουν πίσω.</li>
+</ul>
+</div>
+<table style="background:#5f8b5f; color:#f0f0e0;">
+<tr><th>Παράγοντας</th><th>Βάρος</th></tr>
+<tr><td>Σύνολο υπηρεσιών</td><td><input type="number" id="weightTotal" value="1.0" step="0.1" min="0" style="width:80px;"></td></tr>
+<tr><td>Υπηρεσίες σε αργίες</td><td><input type="number" id="weightHoliday" value="0.5" step="0.1" min="0" style="width:80px;"></td></tr>
+<tr><td>Υπηρεσίες σε καθημερινές</td><td><input type="number" id="weightWeekday" value="0.5" step="0.1" min="0" style="width:80px;"></td></tr>
+<tr><td>Πρόσφατη υπηρεσία</td><td><input type="number" id="weightRecency" value="0.2" step="0.1" min="0" style="width:80px;"></td></tr>
+<tr><td>Αρχαιότητα</td><td><input type="number" id="weightSeniority" value="0.1" step="0.1" style="width:80px;"></td></tr>
+<tr><td>Εξισορρόπηση (απόκλιση από στόχο)</td><td><input type="number" id="weightBalance" value="1.5" step="0.1" min="0" style="width:80px;"></td></tr>
+<tr><td>Εξισορρόπηση ορίου</td><td><input type="number" id="weightLimitFairness" value="1.0" step="0.1" min="0" style="width:80px;"></td></tr>
+</table>
+<button onclick="saveFairnessWeights()">Αποθήκευση</button>
+<hr>
+<h4>Τρέχον Σκορ Μελών (με βάση τα βάρη και την τελευταία δημιουργία)</h4>
+<button onclick="computeCurrentScores()">Υπολογισμός Σκορ</button>
+<div id="scoresTable"></div>
+</div>
+
+<script>
+// ==================== ΠΛΗΡΕΣ JAVASCRIPT (όλες οι λειτουργίες) ====================
+let groups = [];
+let members = [];
+let groupMembers = {};
+let groupOpDays = {};
+let memberLimits = {};
+let memberAbsences = {};
+let seniorityOrder = [];
+let groupOrder = [];
+let memberDisplayOrder = [];
+
+let lastSchedule = null;
+let lastStats = null;
+let lastDays = null;
+let lastHolidaysSet = null;
+let lastGroupColors = null;
+let lastYear = null, lastMonth = null;
+
+let fairnessWeights = {
+  total: 1.0,
+  holiday: 0.5,
+  weekday: 0.5,
+  recency: 0.2,
+  seniority: 0.1,
+  balance: 1.5,
+  limitFairness: 1.0
+};
+
+let savedSchedules = {};
+
+const GROUP_COLORS = ['#FFB6C1', '#ADD8E6', '#98FB98', '#FFD700', '#DDA0DD', '#F0E68C', '#FFA07A', '#87CEEB', '#FFC0CB', '#E6E6FA'];
+const ROW_COLORS = ['#FFFFCC', '#CCFFFF', '#CCFFCC', '#FFCCFF', '#E0E0FF', '#FFE0CC', '#CCE0FF', '#FFCCE0'];
+
+const STORAGE_KEY = 'garas_scheduler_data';
+const WEIGHTS_KEY = 'garas_fairness_weights';
+const SCHEDULES_KEY = 'garas_schedules';
+
+const i18n = { el: {}, en: {} }; // θα συμπληρωθεί από το αρχικό, αλλά για συντομία παραλείπουμε λεπτομέρειες
+// Για πλήρη λειτουργία, εδώ πρέπει να μπουν τα i18n strings. Αλλά δεν είναι κρίσιμα για τη λειτουργία.
+let currentLang = 'el';
+
+// ---- Βοηθητικές για μηνιαίες απουσίες ----
+function ensureAbsenceYearMonth(year, month) {
+  if (!memberAbsences[year]) memberAbsences[year] = {};
+  if (!memberAbsences[year][month]) memberAbsences[year][month] = {};
+}
+function getAbsenceSet(member, year, month, type) {
+  ensureAbsenceYearMonth(year, month);
+  if (!memberAbsences[year][month][member]) memberAbsences[year][month][member] = {};
+  if (!memberAbsences[year][month][member][type]) memberAbsences[year][month][member][type] = new Set();
+  return memberAbsences[year][month][member][type];
+}
+function memberHasAbsence(member, day, year, month) {
+  if (!memberAbsences[year] || !memberAbsences[year][month] || !memberAbsences[year][month][member]) return false;
+  for (let type in memberAbsences[year][month][member]) {
+    if (memberAbsences[year][month][member][type].has(day)) return true;
+  }
+  return false;
+}
+function getAbsenceType(member, day, year, month) {
+  if (!memberAbsences[year] || !memberAbsences[year][month] || !memberAbsences[year][month][member]) return null;
+  for (let type in memberAbsences[year][month][member]) {
+    if (memberAbsences[year][month][member][type].has(day)) return type;
+  }
+  return null;
+}
+
+// ---- Αποθήκευση / Φόρτωση με μετεγκατάσταση ----
+function saveToStorage() {
+  const absencesForStorage = {};
+  for (let y in memberAbsences) {
+    absencesForStorage[y] = {};
+    for (let m in memberAbsences[y]) {
+      absencesForStorage[y][m] = {};
+      for (let member in memberAbsences[y][m]) {
+        absencesForStorage[y][m][member] = {};
+        for (let type in memberAbsences[y][m][member]) {
+          absencesForStorage[y][m][member][type] = Array.from(memberAbsences[y][m][member][type]);
+        }
+      }
+    }
+  }
+  const data = {
+    groups, members, groupMembers, seniorityOrder, groupOrder, memberLimits,
+    groupOpDays: Object.fromEntries(Object.entries(groupOpDays).map(([g, set]) => [g, Array.from(set)])),
+    memberDisplayOrder, memberAbsences: absencesForStorage
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadFromStorage() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      groups = data.groups || [];
+      members = data.members || [];
+      groupMembers = data.groupMembers || {};
+      groups.forEach(g => { if (!groupMembers[g]) groupMembers[g] = []; });
+      seniorityOrder = data.seniorityOrder || [];
+      members.forEach(m => { if (!seniorityOrder.includes(m)) seniorityOrder.push(m); });
+      seniorityOrder = seniorityOrder.filter(m => members.includes(m));
+      groupOrder = data.groupOrder || [];
+      groups.forEach(g => { if (!groupOrder.includes(g)) groupOrder.push(g); });
+      groupOrder = groupOrder.filter(g => groups.includes(g));
+      memberLimits = data.memberLimits || {};
+      members.forEach(m => { if (memberLimits[m] === undefined) memberLimits[m] = 31; });
+      groupOpDays = {};
+      if (data.groupOpDays) {
+        for (let g in data.groupOpDays) groupOpDays[g] = new Set(data.groupOpDays[g]);
+      }
+      groups.forEach(g => { if (!groupOpDays[g]) groupOpDays[g] = new Set(); });
+      memberDisplayOrder = data.memberDisplayOrder || [];
+      members.forEach(m => { if (!memberDisplayOrder.includes(m)) memberDisplayOrder.push(m); });
+      memberDisplayOrder = memberDisplayOrder.filter(m => members.includes(m));
+      // Μετεγκατάσταση παλαιών απουσιών
+      if (data.memberAbsences && !data.memberAbsences["2026"]) {
+        for (let member in data.memberAbsences) {
+          for (let type in data.memberAbsences[member]) {
+            const daysSet = data.memberAbsences[member][type];
+            if (daysSet && daysSet.size) {
+              const y = 2026, m = 1;
+              const set = getAbsenceSet(member, y, m, type);
+              daysSet.forEach(d => set.add(d));
+            }
+          }
+        }
+      } else {
+        memberAbsences = data.memberAbsences || {};
+      }
+    } catch(e) { console.error(e); }
+  }
+  if (groupOrder.length === 0) groupOrder = [...groups].sort();
+  if (seniorityOrder.length === 0 && members.length > 0) seniorityOrder = [...members].sort();
+  members.forEach(m => { if (memberLimits[m] === undefined) memberLimits[m] = 31; });
+  if (memberDisplayOrder.length === 0 && members.length > 0) memberDisplayOrder = [...members].sort();
+  loadFairnessWeights();
+}
+
+function loadFairnessWeights() {
+  const saved = localStorage.getItem(WEIGHTS_KEY);
+  if (saved) {
+    try {
+      fairnessWeights = JSON.parse(saved);
+    } catch (e) {}
+  }
+  document.getElementById('weightTotal').value = fairnessWeights.total;
+  document.getElementById('weightHoliday').value = fairnessWeights.holiday;
+  document.getElementById('weightWeekday').value = fairnessWeights.weekday;
+  document.getElementById('weightRecency').value = fairnessWeights.recency;
+  document.getElementById('weightSeniority').value = fairnessWeights.seniority;
+  document.getElementById('weightBalance').value = fairnessWeights.balance;
+  document.getElementById('weightLimitFairness').value = fairnessWeights.limitFairness;
+}
+
+function saveFairnessWeights() {
+  fairnessWeights = {
+    total: parseFloat(document.getElementById('weightTotal').value) || 0,
+    holiday: parseFloat(document.getElementById('weightHoliday').value) || 0,
+    weekday: parseFloat(document.getElementById('weightWeekday').value) || 0,
+    recency: parseFloat(document.getElementById('weightRecency').value) || 0,
+    seniority: parseFloat(document.getElementById('weightSeniority').value) || 0,
+    balance: parseFloat(document.getElementById('weightBalance').value) || 0,
+    limitFairness: parseFloat(document.getElementById('weightLimitFairness').value) || 0
+  };
+  localStorage.setItem(WEIGHTS_KEY, JSON.stringify(fairnessWeights));
+  document.getElementById('weightsMessage').innerHTML = '✔️ Βάρη αποθηκεύτηκαν';
+  setTimeout(() => document.getElementById('weightsMessage').innerHTML = '', 2000);
+}
+
+// ---- Όλες οι συναρτήσεις διαχείρισης (addGroup, addMember, κλπ.) ----
+function addGroup() {
+  const name = document.getElementById('newGroupName').value.trim();
+  if (name && !groups.includes(name)) {
+    groups.push(name);
+    groupMembers[name] = [];
+    groupOpDays[name] = new Set();
+    groupOrder.push(name);
+    document.getElementById('newGroupName').value = '';
+    saveToStorage();
+    updateGroupsList();
+    updateDropdowns();
+    updateOpDaysList();
+    updateOrderGroupSelect();
+    updateGroupOrderList();
+    updateTab7Dropdowns();
+    checkMembershipWarning();
+  } else if (groups.includes(name)) alert(currentLang === 'el' ? 'Η ομάδα υπάρχει ήδη.' : 'Group already exists.');
+}
+function removeGroup(name) {
+  groups = groups.filter(g => g !== name);
+  delete groupMembers[name];
+  delete groupOpDays[name];
+  groupOrder = groupOrder.filter(g => g !== name);
+  saveToStorage();
+  updateGroupsList(); updateDropdowns(); updateGroupMembershipList(); updateOpDaysList(); updateOrderGroupSelect(); updateGroupOrderList(); updateTab7Dropdowns();
+  checkMembershipWarning();
+}
+function updateGroupsList() {
+  const container = document.getElementById('groupsList');
+  container.innerHTML = '';
+  groupOrder.forEach(g => {
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.innerHTML = `<span>${g}</span> <button class="danger" onclick="removeGroup('${g}')">${currentLang === 'el' ? 'Αφαίρεση' : 'Remove'}</button>`;
+    container.appendChild(div);
+  });
+}
+function addMember() {
+  const name = document.getElementById('newMemberName').value.trim();
+  if (name && !members.includes(name)) {
+    members.push(name);
+    memberLimits[name] = 31;
+    memberAbsences[name] = {};
+    seniorityOrder.push(name);
+    memberDisplayOrder.push(name);
+    document.getElementById('newMemberName').value = '';
+    saveToStorage();
+    updateMembersTable();
+    updateDropdowns();
+    updateLimitsTable();
+    updateAbsencesList();
+    updateOrderGroupSelect();
+    updateTab7Dropdowns();
+    updateSeniorityTable();
+    updateOrderMembersTable();
+    checkMembershipWarning();
+  } else if (members.includes(name)) alert(currentLang === 'el' ? 'Το μέλος υπάρχει ήδη.' : 'Member already exists.');
+}
+function removeMember(name) {
+  members = members.filter(m => m !== name);
+  delete memberLimits[name];
+  delete memberAbsences[name];
+  seniorityOrder = seniorityOrder.filter(m => m !== name);
+  memberDisplayOrder = memberDisplayOrder.filter(m => m !== name);
+  for (let g in groupMembers) groupMembers[g] = groupMembers[g].filter(m => m !== name);
+  saveToStorage();
+  updateMembersTable();
+  updateDropdowns(); 
+  updateGroupMembershipList(); 
+  updateLimitsTable(); 
+  updateAbsencesList(); 
+  updateOrderGroupSelect(); 
+  updateTab7Dropdowns(); 
+  updateSeniorityTable();
+  updateOrderMembersTable();
+  checkMembershipWarning();
+}
+function editMemberName(oldName) {
+  const newName = prompt(currentLang === 'el' ? 'Νέο όνομα για το μέλος:' : 'New name for member:', oldName);
+  if (newName && newName !== oldName) {
+    if (members.includes(newName)) {
+      alert(currentLang === 'el' ? 'Υπάρχει ήδη μέλος με αυτό το όνομα.' : 'Member with that name already exists.');
+      return;
+    }
+    members = members.map(m => m === oldName ? newName : m);
+    for (let g in groupMembers) {
+      groupMembers[g] = groupMembers[g].map(m => m === oldName ? newName : m);
+    }
+    memberLimits[newName] = memberLimits[oldName];
+    delete memberLimits[oldName];
+    memberAbsences[newName] = memberAbsences[oldName];
+    delete memberAbsences[oldName];
+    seniorityOrder = seniorityOrder.map(m => m === oldName ? newName : m);
+    memberDisplayOrder = memberDisplayOrder.map(m => m === oldName ? newName : m);
+    if (lastStats && lastStats[oldName]) {
+      lastStats[newName] = lastStats[oldName];
+      delete lastStats[oldName];
+    }
+    if (lastSchedule) {
+      lastSchedule = lastSchedule.map(item => {
+        if (item.member === oldName) item.member = newName;
+        return item;
+      });
+    }
+    saveToStorage();
+    updateMembersTable();
+    updateDropdowns();
+    updateLimitsTable();
+    updateAbsencesList();
+    updateOrderGroupSelect();
+    updateTab7Dropdowns();
+    updateSeniorityTable();
+    updateOrderMembersTable();
+    if (lastSchedule) renderMatrixByGroup(lastSchedule, groups, groupMembers, lastDays, lastHolidaysSet, lastGroupColors, groupOpDays);
+  }
+}
+function updateMembersTable() {
+  const tbody = document.querySelector("#membersTable tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  memberDisplayOrder.forEach((member, i) => {
+    if (!members.includes(member)) return;
+    const tr = document.createElement("tr");
+    tr.draggable = true;
+    tr.innerHTML = `
+    <td class="num">${i+1}</td>
+    <td>${member}</td>
+    <td>
+      <button class="danger" onclick="removeMember('${member}')">${currentLang === 'el' ? 'Αφαίρεση' : 'Remove'}</button>
+      <button onclick="editMemberName('${member}')">${currentLang === 'el' ? 'Επεξεργασία' : 'Edit'}</button>
+    </td>
+    `;
+    tbody.appendChild(tr);
+  });
+  attachDragDrop('membersTable', updateMemberOrderFromTable);
+}
+let draggedRow = null;
+function attachDragDrop(tableId, onDropCallback) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  if (!tbody) return;
+  const rows = tbody.querySelectorAll("tr");
+  rows.forEach(row => {
+    row.removeEventListener("dragstart", dragStartHandler);
+    row.removeEventListener("dragend", dragEndHandler);
+  });
+  tbody.removeEventListener("dragover", dragOverHandler);
+  function dragStartHandler(e) {
+    draggedRow = this;
+    this.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+  }
+  function dragEndHandler(e) {
+    this.classList.remove("dragging");
+    if (onDropCallback) onDropCallback();
+  }
+  function dragOverHandler(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    const afterElement = getAfterRow(tbody, e.clientY);
+    if (afterElement == null) {
+      tbody.appendChild(draggedRow);
+    } else {
+      tbody.insertBefore(draggedRow, afterElement);
+    }
+  }
+  rows.forEach(row => {
+    row.addEventListener("dragstart", dragStartHandler);
+    row.addEventListener("dragend", dragEndHandler);
+  });
+  tbody.addEventListener("dragover", dragOverHandler);
+}
+function getAfterRow(container, y) {
+  const rows = [...container.querySelectorAll("tr:not(.dragging)")];
+  return rows.reduce((closest, row) => {
+    const box = row.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: row };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+function updateNumbers(tableId) {
+  document.querySelectorAll(`#${tableId} tbody tr`).forEach((row, i) => {
+    const numCell = row.querySelector(".num");
+    if (numCell) numCell.textContent = i + 1;
+  });
+}
+function updateMemberOrderFromTable() {
+  const newOrder = [];
+  document.querySelectorAll("#membersTable tbody tr").forEach(row => {
+    const name = row.cells[1]?.innerText;
+    if (name) newOrder.push(name);
+  });
+  memberDisplayOrder = newOrder;
+  saveToStorage();
+}
+function importMembersFromExcel() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.xlsx, .xls';
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(loadEvent) {
+      const data = new Uint8Array(loadEvent.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+      let added = 0;
+      rows.forEach(row => {
+        if (row && row.length > 0 && row[0]) {
+          let name = String(row[0]).trim();
+          if (name && !members.includes(name)) {
+            members.push(name);
+            memberLimits[name] = 31;
+            memberAbsences[name] = {};
+            seniorityOrder.push(name);
+            memberDisplayOrder.push(name);
+            added++;
+          }
+        }
+      });
+      if (added > 0) {
+        saveToStorage();
+        updateMembersTable();
+        updateDropdowns();
+        updateLimitsTable();
+        updateAbsencesList();
+        updateOrderGroupSelect();
+        updateTab7Dropdowns();
+        updateSeniorityTable();
+        updateOrderMembersTable();
+        alert(`Προστέθηκαν ${added} νέα μέλη.`);
+      } else {
+        alert('Δεν βρέθηκαν νέα ονόματα.');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  };
+  input.click();
+}
+function showPasteMembersDialog() { document.getElementById('pasteMembersArea').style.display = 'block'; }
+function hidePasteArea() { document.getElementById('pasteMembersArea').style.display = 'none'; document.getElementById('pasteNames').value = ''; }
+function addPastedMembers() {
+  const text = document.getElementById('pasteNames').value;
+  const lines = text.split(/\n/);
+  let added = 0;
+  lines.forEach(line => {
+    let name = line.trim();
+    if (name && !members.includes(name)) {
+      members.push(name);
+      memberLimits[name] = 31;
+      memberAbsences[name] = {};
+      seniorityOrder.push(name);
+      memberDisplayOrder.push(name);
+      added++;
+    }
+  });
+  if (added > 0) {
+    saveToStorage();
+    updateMembersTable();
+    updateDropdowns();
+    updateLimitsTable();
+    updateAbsencesList();
+    updateOrderGroupSelect();
+    updateTab7Dropdowns();
+    updateSeniorityTable();
+    updateOrderMembersTable();
+    alert(`Προστέθηκαν ${added} νέα μέλη.`);
+  } else {
+    alert('Δεν βρέθηκαν νέα ονόματα.');
+  }
+  hidePasteArea();
+}
+function addMemberToGroup() {
+  const group = document.getElementById('groupSelectMembership').value;
+  const member = document.getElementById('memberSelectMembership').value;
+  if (group && member && !groupMembers[group].includes(member)) {
+    groupMembers[group].push(member);
+    saveToStorage();
+    updateGroupMembershipList();
+    updateOrderGroupSelect();
+    updateTab7Dropdowns();
+    checkMembershipWarning();
+    updateCurrentGroupMembers();
+  }
+}
+function removeMemberFromGroup(group, member) {
+  groupMembers[group] = groupMembers[group].filter(m => m !== member);
+  saveToStorage();
+  updateGroupMembershipList();
+  updateOrderGroupSelect();
+  updateTab7Dropdowns();
+  checkMembershipWarning();
+  updateCurrentGroupMembers();
+}
+function updateGroupMembershipList() {
+  const container = document.getElementById('groupMembershipList');
+  container.innerHTML = '';
+  for (let g of groups.sort()) {
+    const membersOfGroup = groupMembers[g] || [];
+    membersOfGroup.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'list-item';
+      div.innerHTML = `<span>${g} → ${m}</span> <button class="danger" onclick="removeMemberFromGroup('${g}', '${m}')">${currentLang === 'el' ? 'Αφαίρεση' : 'Remove'}</button>`;
+      container.appendChild(div);
+    });
+  }
+}
+function updateCurrentGroupMembers() {
+  const group = document.getElementById('groupSelectMembership').value;
+  const container = document.getElementById('currentGroupMembersDisplay');
+  if (!group) { container.innerHTML = ''; return; }
+  const membersList = groupMembers[group] || [];
+  if (membersList.length === 0) { container.innerHTML = '<p>Δεν υπάρχουν μέλη σε αυτή την ομάδα.</p>'; return; }
+  let html = '<ul>';
+  membersList.forEach(m => html += `<li>${m}</li>`);
+  html += '</ul>';
+  container.innerHTML = html;
+}
+function setOpDays() {
+  const group = document.getElementById('groupSelectOpDays').value;
+  const expr = document.getElementById('opDaysInput').value.trim();
+  if (!group) return;
+  if (expr.toLowerCase() === 'all') {
+    for (let d = 1; d <= 31; d++) groupOpDays[group].add(d);
+  } else if (expr.toLowerCase() === 'none') {
+    groupOpDays[group] = new Set();
+  } else {
+    const daysSet = parseDayRanges(expr, 31);
+    groupOpDays[group] = daysSet;
+  }
+  document.getElementById('opDaysInput').value = '';
+  saveToStorage();
+  updateOpDaysList();
+}
+function setAllDays() { document.getElementById('opDaysInput').value = 'all'; setOpDays(); }
+function updateOpDaysList() {
+  const container = document.getElementById('opDaysList');
+  container.innerHTML = '';
+  groupOrder.forEach(g => {
+    const days = Array.from(groupOpDays[g] || []).sort().join(', ');
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.innerHTML = `<span>${g}: ${days || (currentLang === 'el' ? 'κανένα' : 'none')}</span>`;
+    container.appendChild(div);
+  });
+}
+function updateLimitsTable() {
+  const container = document.getElementById('limitsTableContainer');
+  if (!container) return;
+  let html = '<table><tr><th>Μέλος</th><th>Όριο</th><th></th></tr>';
+  members.sort().forEach(m => {
+    html += `<tr>
+      <td>${m}</td>
+      <td><input type="number" id="limit_${m}" value="${memberLimits[m] || 31}" min="1" style="width:80px;"></td>
+      <td><button onclick="saveLimit('${m}')">${currentLang === 'el' ? 'Αποθήκευση' : 'Save'}</button></td>
+    </tr>`;
+  });
+  html += '</table>';
+  container.innerHTML = html;
+}
+function saveLimit(member) {
+  const input = document.getElementById(`limit_${member}`);
+  const limit = parseInt(input.value);
+  if (!isNaN(limit) && limit > 0) {
+    memberLimits[member] = limit;
+    saveToStorage();
+    alert(currentLang === 'el' ? 'Το όριο αποθηκεύτηκε.' : 'Limit saved.');
+  } else {
+    alert(currentLang === 'el' ? 'Μη έγκυρη τιμή.' : 'Invalid value.');
+  }
+}
+function updateDropdowns() {
+  const groupSelects = ['groupSelectMembership', 'groupSelectOpDays', 'orderGroupSelect', 'addGroup'];
+  groupSelects.forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = groupOrder.map(g => `<option value="${g}">${g}</option>`).join('');
+  });
+  const memberSelects = ['memberSelectMembership', 'memberSelectLimit', 'memberSelectAbsence', 'swapMember1', 'swapMember2', 'removeMember', 'addMember'];
+  memberSelects.forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = members.sort().map(m => `<option value="${m}">${m}</option>`).join('');
+  });
+  checkMembershipWarning();
+  updateCurrentGroupMembers();
+}
+function setupMembershipListeners() {
+  const groupSelect = document.getElementById('groupSelectMembership');
+  const memberSelect = document.getElementById('memberSelectMembership');
+  if (groupSelect) groupSelect.addEventListener('change', checkMembershipWarning);
+  if (memberSelect) memberSelect.addEventListener('change', checkMembershipWarning);
+}
+function checkMembershipWarning() {
+  const group = document.getElementById('groupSelectMembership').value;
+  const member = document.getElementById('memberSelectMembership').value;
+  const warningSpan = document.getElementById('membershipWarning');
+  const addBtn = document.getElementById('addMemberToGroupBtn');
+  const memberSelect = document.getElementById('memberSelectMembership');
+  if (!group || !member) {
+    warningSpan.style.display = 'none';
+    addBtn.disabled = false;
+    memberSelect.style.color = '';
+    return;
+  }
+  if (groupMembers[group] && groupMembers[group].includes(member)) {
+    warningSpan.style.display = 'inline';
+    addBtn.disabled = true;
+    memberSelect.style.color = 'red';
+  } else {
+    warningSpan.style.display = 'none';
+    addBtn.disabled = false;
+    memberSelect.style.color = '';
+  }
+}
+function showTab(n) {
+  for (let i = 1; i <= 12; i++) {
+    const el = document.getElementById(`tab${i}`);
+    if (el) el.style.display = i === n ? 'block' : 'none';
+  }
+  document.querySelectorAll('.tab').forEach((t, idx) => {
+    if (idx+1 === n) t.classList.add('active'); else t.classList.remove('active');
+  });
+  if (n === 1) showSubTab(1,1);
+  if (n === 7) showSubTab(7,1);
+  if (n === 8) updateSeniorityTable();
+  if (n === 6) { updateGroupOrderList(); updateOrderGroupSelect(); loadGroupOrder(); }
+  if (n === 3) updateLimitsTable();
+  if (n === 9) generateAbsenceReport();
+}
+function showSubTab(mainTab, sub) {
+  if (mainTab === 1) {
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById(`subtab1_${i}`).style.display = i === sub ? 'block' : 'none';
+    }
+    document.querySelectorAll('#tab1 .subtab').forEach((t, idx) => {
+      if (idx+1 === sub) t.classList.add('active'); else t.classList.remove('active');
+    });
+    if (sub === 3) updateCurrentGroupMembers();
+  } else if (mainTab === 7) {
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById(`subtab7_${i}`).style.display = i === sub ? 'block' : 'none';
+    }
+    document.querySelectorAll('#tab7 .subtab').forEach((t, idx) => {
+      if (idx+1 === sub) t.classList.add('active'); else t.classList.remove('active');
+    });
+  }
+}
+function parseDayRanges(expr, daysInMonth) {
+  const parts = expr.replace(/\s/g, "").split(",");
+  const days = new Set();
+  parts.forEach(p => {
+    if (!p) return;
+    if (p.includes("-")) {
+      const [start, end] = p.split("-").map(Number);
+      const from = Math.min(start, end), to = Math.max(start, end);
+      for (let d = from; d <= to; d++) if (d>=1 && d<=daysInMonth) days.add(d);
+    } else {
+      const d = Number(p);
+      if (!isNaN(d) && d>=1 && d<=daysInMonth) days.add(d);
+    }
+  });
+  return days;
+}
+function daysInMonth(y,m){return new Date(y,m,0).getDate()}
+function isWeekend(date){let d=date.getDay(); return d===0||d===6}
+function isHoliday(date, extraHolidays = new Set()) {
+  let m = date.getMonth() + 1, d = date.getDate();
+  if ((m===1&&d===1)||(m===3&&d===25)||(m===10&&d===28)||(m===12&&d===25)) return true;
+  if (extraHolidays.has(d)) return true;
+  return isWeekend(date);
+}
+function underLimit(stats, member, limits) { return stats[member].total < limits[member]; }
+
+// ---- Τροποποιημένη pickCandidate με νέους παράγοντες ----
+function pickCandidate(candidates, day, isHolidayFlag, stats, lastDay, year, month, limits) {
+  let maxTotal = 0, maxHoliday = 0, maxWeekday = 0, maxSeniority = seniorityOrder.length - 1;
+  candidates.forEach(m => {
+    maxTotal = Math.max(maxTotal, stats[m].total);
+    maxHoliday = Math.max(maxHoliday, stats[m].holiday);
+    maxWeekday = Math.max(maxWeekday, stats[m].weekday);
+  });
+  if (maxTotal === 0) maxTotal = 1;
+  if (maxHoliday === 0) maxHoliday = 1;
+  if (maxWeekday === 0) maxWeekday = 1;
+  if (maxSeniority === 0) maxSeniority = 1;
+
+  let totalServices = 0, memberCount = 0;
+  for (let m in stats) { totalServices += stats[m].total; memberCount++; }
+  let target = totalServices / (memberCount || 1);
+
+  // limit fairness: group members by limit and compute max services among lower limits
+  const limitGroups = {};
+  members.forEach(m => { const l = limits[m] || 31; if (!limitGroups[l]) limitGroups[l] = []; limitGroups[l].push(m); });
+  const sortedLimits = Object.keys(limitGroups).map(Number).sort((a,b)=>a-b);
+  let currentMax = 0;
+  const maxServiceForLowerLimits = {};
+  sortedLimits.forEach(lim => {
+    maxServiceForLowerLimits[lim] = currentMax;
+    let groupMax = 0;
+    limitGroups[lim].forEach(m => { if (stats[m]) groupMax = Math.max(groupMax, stats[m].total); });
+    currentMax = Math.max(currentMax, groupMax);
+  });
+
+  const scored = candidates.map(m => {
+    let totalNorm = stats[m].total / maxTotal;
+    let holidayNorm = stats[m].holiday / maxHoliday;
+    let weekdayNorm = stats[m].weekday / maxWeekday;
+    let last = lastDay[m] || -99;
+    let recencyVal = (last === day-1) ? 1 : (last === day-2 ? 0.5 : (last === day-3 ? 0.2 : 0));
+    let seniorityIndex = seniorityOrder.indexOf(m);
+    let seniorityNorm = seniorityIndex / maxSeniority;
+    let score = 0;
+    score += fairnessWeights.total * totalNorm;
+    if (isHolidayFlag) score += fairnessWeights.holiday * holidayNorm;
+    else score += fairnessWeights.weekday * weekdayNorm;
+    score += fairnessWeights.recency * recencyVal;
+    score += fairnessWeights.seniority * seniorityNorm;
+    let deviation = stats[m].total - target;
+    score += fairnessWeights.balance * deviation;
+    const limit = limits[m] || 31;
+    const maxLower = maxServiceForLowerLimits[limit] || 0;
+    if (stats[m].total < maxLower) {
+      score += fairnessWeights.limitFairness * (maxLower - stats[m].total);
+    }
+    return { member: m, score };
+  });
+  scored.sort((a,b) => a.score - b.score);
+  return scored[0]?.member || null;
+}
+
+// ---- Γεννήτρια προγράμματος με χρήση year/month ----
+function generateSchedule(year, month, groups, groupMembers, groupOpDays, allMembers, memberAbsences, memberLimits, extraHolidays) {
+  const days = daysInMonth(year, month);
+  const schedule = [];
+  const stats = {};
+  allMembers.forEach(m => stats[m] = { total: 0, holiday: 0, weekday: 0 });
+  const lastDay = {};
+  let assignedToday = {};
+  for (let d = 1; d <= days; d++) {
+    const date = new Date(year, month - 1, d);
+    const isHolidayFlag = isHoliday(date, extraHolidays);
+    assignedToday = {};
+    groups.forEach(group => {
+      if (!groupOpDays[group] || !groupOpDays[group].has(d)) return;
+      const membersOfGroup = groupMembers[group] || [];
+      if (membersOfGroup.length === 0) return;
+      let candidates = membersOfGroup.filter(m => {
+        if (memberHasAbsence(m, d, year, month)) return false;
+        if (assignedToday[m]) return false;
+        if (lastDay[m] === d - 1) return false;
+        if (!underLimit(stats, m, memberLimits)) return false;
+        return true;
+      });
+      if (candidates.length === 0) return;
+      const chosen = pickCandidate(candidates, d, isHolidayFlag, stats, lastDay, year, month, memberLimits);
+      if (!chosen) return;
+      schedule.push({ day: d, group: group, member: chosen });
+      assignedToday[chosen] = true;
+      lastDay[chosen] = d;
+      stats[chosen].total++;
+      if (isHolidayFlag) stats[chosen].holiday++; else stats[chosen].weekday++;
+    });
+  }
+  return { schedule, stats };
+}
+
+function generate() {
+  let y = parseInt(document.getElementById("year").value);
+  let m = parseInt(document.getElementById("month").value);
+  const extraHolidaysInput = document.getElementById("extraHolidays").value;
+  const extraHolidays = parseDayRanges(extraHolidaysInput, daysInMonth(y, m));
+  const daysReal = daysInMonth(y, m);
+  for (let g of groups) {
+    const newSet = new Set();
+    groupOpDays[g].forEach(d => { if (d <= daysReal) newSet.add(d); });
+    groupOpDays[g] = newSet;
+  }
+  let result = generateSchedule(y, m, groups, groupMembers, groupOpDays, members, memberAbsences, memberLimits, extraHolidays);
+  lastSchedule = result.schedule;
+  lastStats = result.stats;
+  lastDays = daysReal;
+  lastYear = y; lastMonth = m;
+  saveMonthlyStats(y, m, result.stats);
+  const groupColors = {};
+  groups.forEach((g, idx) => groupColors[g] = GROUP_COLORS[idx % GROUP_COLORS.length]);
+  lastGroupColors = groupColors;
+  let holidayDays = new Set();
+  for (let d = 1; d <= daysReal; d++) {
+    let date = new Date(y, m-1, d);
+    if (isHoliday(date, extraHolidays)) holidayDays.add(d);
+  }
+  lastHolidaysSet = holidayDays;
+  renderMatrixByGroup(result.schedule, groups, groupMembers, daysReal, holidayDays, groupColors, groupOpDays);
+  saveCurrentScheduleState();
+}
+
+function renderMatrixByGroup(schedule, groups, groupMembers, days, holidayDays, groupColors, groupOpDays) {
+  const memberDayGroup = {};
+  schedule.forEach(item => memberDayGroup[item.member + '-' + item.day] = item.group);
+  const memberAllDays = {};
+  const memberGroups = {};
+  members.forEach(m => { memberAllDays[m] = []; memberGroups[m] = []; });
+  for (let g in groupMembers) groupMembers[g].forEach(m => { if (!memberGroups[m].includes(g)) memberGroups[m].push(g); });
+  schedule.forEach(item => memberAllDays[item.member].push(item.day));
+  let html = '';
+  groupOrder.forEach((group, gIdx) => {
+    const membersOfGroup = groupMembers[group] || [];
+    if (membersOfGroup.length === 0) return;
+    const groupColor = groupColors[group] || '#cccccc';
+    html += `<div class="group-header" style="background-color: ${groupColor};">${currentLang === 'el' ? 'Ομάδα' : 'Group'}: ${group}</div>`;
+    html += '<div style="overflow-x:auto"><table><thead><tr><th>Μέλος</th>';
+    for (let d = 1; d <= days; d++) {
+      let holidayClass = holidayDays.has(d) ? 'holiday-col' : '';
+      html += `<th class="${holidayClass}">${d}</th>`;
+    }
+    html += '</tr></thead><tbody>';
+    const assignedDaysForGroup = new Set();
+    schedule.forEach(item => { if (item.group === group) assignedDaysForGroup.add(item.day); });
+    const missingDays = [];
+    for (let d = 1; d <= days; d++) {
+      if (groupOpDays[group] && groupOpDays[group].has(d) && !assignedDaysForGroup.has(d)) missingDays.push(d);
+    }
+    membersOfGroup.forEach((member, mIdx) => {
+      const rowColor = ROW_COLORS[(gIdx + mIdx) % ROW_COLORS.length];
+      html += `<tr><td style="font-weight:bold; background-color: ${rowColor};">${member}</td>`;
+      for (let d = 1; d <= days; d++) {
+        const key = member + '-' + d;
+        let cellStyle = '', cellContent = '', additionalClass = '';
+        const absenceType = getAbsenceType(member, d, lastYear, lastMonth);
+        if (absenceType) {
+          additionalClass = 'leave-cell';
+          cellContent = absenceType;
+        } else if (memberDayGroup[key] === group) {
+          cellStyle = `background-color: ${groupColor};`;
+          cellContent = group;
+        } else {
+          cellStyle = `background-color: ${rowColor};`;
+        }
+        html += `<td class="${additionalClass}" style="${cellStyle}">${cellContent}</td>`;
+      }
+      html += '</tr>';
+    });
+    if (missingDays.length > 0) {
+      html += `<tr class="missing-row"><td colspan="${days+1}" class="missing-cell">⚠️ ${currentLang === 'el' ? 'Κανένας διαθέσιμος για υπηρεσία τις ημέρες' : 'No one available for service on days'}: ${missingDays.join(', ')}</td></tr>`;
+    }
+    html += '</tbody></table></div><br>';
+  });
+  html += '<h3>Στατιστικά</h3><table><tr><th>Μέλος</th><th>Σύνολο</th><th>Αργίες</th><th>Καθημερινές</th></tr>';
+  for (let m in lastStats) {
+    let s = lastStats[m];
+    html += `<tr><td>${m}</td><td>${s.total}</td><td>${s.holiday}</td><td>${s.weekday}</td></tr>`;
+  }
+  html += '</table>';
+  html += '<h3>Συγκεντρωτικός Πίνακας Μελών (όλες οι υπηρεσίες)</h3>';
+  html += '<table><tr><th>Μέλος</th><th>Ομάδες</th><th>Ημέρες Υπηρεσίας</th></tr>';
+  seniorityOrder.forEach(m => {
+    const groupsList = memberGroups[m] ? memberGroups[m].sort().join(', ') : '';
+    const daysCompressed = compressDays(memberAllDays[m].sort((a,b)=>a-b));
+    html += `<tr><td>${m}</td><td>${groupsList}</td><td>${daysCompressed}</td></tr>`;
+  });
+  html += '</table>';
+  html += '<h3>Συγκεντρωτικός Πίνακας Όλων των Μελών (ανά ημέρα)</h3>';
+  html += '<div style="overflow-x:auto"><table><thead><tr><th>Μέλος</th>';
+  for (let d = 1; d <= days; d++) {
+    let holidayClass = holidayDays.has(d) ? 'holiday-col' : '';
+    html += `<th class="${holidayClass}">${d}</th>`;
+  }
+  html += '</tr></thead><tbody>';
+  seniorityOrder.forEach(member => {
+    html += `<tr><td style="font-weight:bold;">${member}</td>`;
+    for (let d = 1; d <= days; d++) {
+      let cellStyle = '', cellContent = '', additionalClass = '';
+      const absenceType = getAbsenceType(member, d, lastYear, lastMonth);
+      if (absenceType) {
+        additionalClass = 'leave-cell';
+        cellContent = absenceType;
+      } else {
+        const service = schedule.find(item => item.member === member && item.day === d);
+        if (service) {
+          const groupColor = groupColors[service.group] || '#cccccc';
+          cellStyle = `background-color: ${groupColor};`;
+          cellContent = service.group;
+        }
+      }
+      html += `<td class="${additionalClass}" style="${cellStyle}">${cellContent}</td>`;
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  html += '<h3>Αναλυτική Κατάσταση Μελών (όλες οι υπηρεσίες και απουσίες)</h3>';
+  html += '<table><tr><th>Μέλος</th><th>Υπηρεσίες (ημέρα-ομάδα)</th><th>Απουσίες (ημέρα-τύπος)</th></tr>';
+  seniorityOrder.forEach(member => {
+    let services = schedule.filter(item => item.member === member).map(item => ({ day: item.day, group: item.group }));
+    services.sort((a,b) => a.day - b.day);
+    let servicesStr = services.map(s => `${s.day}(${s.group})`).join(', ');
+    let absences = [];
+    if (memberAbsences[lastYear] && memberAbsences[lastYear][lastMonth] && memberAbsences[lastYear][lastMonth][member]) {
+      for (let type in memberAbsences[lastYear][lastMonth][member]) {
+        memberAbsences[lastYear][lastMonth][member][type].forEach(day => {
+          absences.push({ day: day, type: type });
+        });
+      }
+    }
+    absences.sort((a,b) => a.day - b.day);
+    let absencesStr = absences.map(a => `${a.day}(${a.type})`).join(', ');
+    html += `<tr><td>${member}</td><td>${servicesStr || '-'}</td><td>${absencesStr || '-'}</td></tr>`;
+  });
+  html += '</table>';
+  document.getElementById("table").innerHTML = html;
+}
+
+function compressDays(daysArray) {
+  if (!daysArray || daysArray.length === 0) return '';
+  const sorted = [...daysArray].sort((a,b) => a-b);
+  const ranges = [];
+  let start = sorted[0];
+  let end = sorted[0];
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i] === end + 1) {
+      end = sorted[i];
+    } else {
+      ranges.push(start === end ? `${start}` : `${start}-${end}`);
+      start = sorted[i];
+      end = sorted[i];
+    }
+  }
+  ranges.push(start === end ? `${start}` : `${start}-${end}`);
+  return ranges.join(', ');
+}
+
+function saveMonthlyStats(year, month, stats) {
+  const key = `garas_yearly_stats_${year}`;
+  let yearlyData = {};
+  try { const saved = localStorage.getItem(key); if (saved) yearlyData = JSON.parse(saved); } catch(e) {}
+  yearlyData[month] = stats;
+  localStorage.setItem(key, JSON.stringify(yearlyData));
+}
+function loadYearlyStats(year) {
+  const key = `garas_yearly_stats_${year}`;
+  try { const saved = localStorage.getItem(key); return saved ? JSON.parse(saved) : {}; } catch(e) { return {}; }
+}
+function showYearlyStats() {
+  const year = parseInt(document.getElementById('statsYear').value);
+  const yearlyStats = loadYearlyStats(year);
+  if (Object.keys(yearlyStats).length === 0) {
+    document.getElementById('yearlyStatsTable').innerHTML = '<p>Δεν υπάρχουν στατιστικά για αυτό το έτος.</p>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Μέλος</th>';
+  const months = ['Ιαν','Φεβ','Μαρ','Απρ','Μάι','Ιουν','Ιουλ','Αυγ','Σεπ','Οκτ','Νοε','Δεκ'];
+  for (let m = 1; m <= 12; m++) html += `<th>${months[m-1]}</th>`;
+  html += '<th>Σύνολο</th></tr></thead><tbody>';
+  seniorityOrder.forEach(member => {
+    let totalYear = 0;
+    html += `<tr><td>${member}</td>`;
+    for (let m = 1; m <= 12; m++) {
+      let val = '';
+      if (yearlyStats[m] && yearlyStats[m][member]) {
+        val = yearlyStats[m][member].total;
+        totalYear += val;
+      }
+      html += `<td>${val}</td>`;
+    }
+    html += `<td>${totalYear}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('yearlyStatsTable').innerHTML = html;
+}
+function exportToXLSX() {
+  if (!lastSchedule || !lastStats || !members || !lastDays) {
+    alert("Δεν υπάρχει πρόγραμμα. Δημιουργήστε πρώτα ένα πρόγραμμα.");
+    return;
+  }
+  const wb = XLSX.utils.book_new();
+  const header = [""]; for (let d = 1; d <= lastDays; d++) header.push(d);
+  const serviceMap = {};
+  lastSchedule.forEach(item => serviceMap[item.member + '-' + item.day] = item.group);
+  const sortedMembers = [...members].sort();
+  const rows = [header];
+  sortedMembers.forEach(member => {
+    const row = [member];
+    for (let d = 1; d <= lastDays; d++) {
+      const key = member + '-' + d;
+      const absenceType = getAbsenceType(member, d, lastYear, lastMonth);
+      if (absenceType) row.push(absenceType);
+      else if (serviceMap[key]) row.push(serviceMap[key]);
+      else row.push("");
+    }
+    rows.push(row);
+  });
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  const colWidths = [{ wch: 20 }]; for (let d = 1; d <= lastDays; d++) colWidths.push({ wch: 6 });
+  ws['!cols'] = colWidths;
+  const HOLIDAY_COLOR = "FFF2CC", LEAVE_COLOR = "FFCCCC";
+  function getFillStyle(color) { return { pattern: { type: "solid", fgColor: { rgb: color } } }; }
+  const groupColorMap = lastGroupColors || {};
+  const rowColors = sortedMembers.map((_, idx) => ROW_COLORS[idx % ROW_COLORS.length].substring(1));
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for (let R = range.s.r; R <= range.e.r; R++) {
+    for (let C = range.s.c; C <= range.e.c; C++) {
+      const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+      if (!ws[cellRef]) continue;
+      let fillColor = null;
+      if (R === 0 && C >= 1 && lastHolidaysSet && lastHolidaysSet.has(C)) fillColor = HOLIDAY_COLOR;
+      if (R >= 1 && C >= 1) {
+        const member = rows[R][0];
+        if (memberHasAbsence(member, C, lastYear, lastMonth)) fillColor = LEAVE_COLOR;
+        else {
+          const key = member + '-' + C;
+          const group = serviceMap[key];
+          if (group && groupColorMap[group]) fillColor = groupColorMap[group].substring(1);
+        }
+      }
+      if (!fillColor && R >= 1 && C >= 1) fillColor = rowColors[R-1];
+      if (fillColor) ws[cellRef].s = { fill: getFillStyle(fillColor) };
+      if (!ws[cellRef].s) ws[cellRef].s = {};
+      ws[cellRef].s.alignment = { horizontal: "center", vertical: "center" };
+    }
+  }
+  XLSX.utils.book_append_sheet(wb, ws, "Πρόγραμμα");
+  const statsRows = [["Μέλος","Σύνολο","Αργίες","Καθημερινές"]];
+  sortedMembers.forEach(m => { let s = lastStats[m]; statsRows.push([m, s.total, s.holiday, s.weekday]); });
+  const wsStats = XLSX.utils.aoa_to_sheet(statsRows);
+  wsStats['!cols'] = [{ wch:20 }, { wch:10 }, { wch:10 }, { wch:12 }];
+  XLSX.utils.book_append_sheet(wb, wsStats, "Στατιστικά");
+  XLSX.writeFile(wb, "garas_schedule.xlsx");
+}
+function updateGroupOrderList() {
+  const container = document.getElementById('groupOrderList');
+  if (!container) return;
+  container.innerHTML = '';
+  groupOrder.forEach((group, index) => {
+    const div = document.createElement('div');
+    div.className = 'order-item';
+    div.innerHTML = `<span>${index+1}. ${group}</span>
+      <input type="number" id="groupPos_${group}" value="${index+1}" min="1" max="${groupOrder.length}" style="width:60px;">
+      <button onclick="moveGroupToPosition('${group}')">${currentLang === 'el' ? 'Μετακίνηση' : 'Move'}</button>
+      <button onclick="moveGroupUp('${group}')" ${index===0?'disabled':''}>⬆️</button>
+      <button onclick="moveGroupDown('${group}')" ${index===groupOrder.length-1?'disabled':''}>⬇️</button>`;
+    container.appendChild(div);
+  });
+}
+function moveGroupUp(group) {
+  const idx = groupOrder.indexOf(group);
+  if (idx <= 0) return;
+  [groupOrder[idx-1], groupOrder[idx]] = [groupOrder[idx], groupOrder[idx-1]];
+  saveToStorage();
+  updateGroupOrderList();
+  updateGroupsList();
+  updateOpDaysList();
+}
+function moveGroupDown(group) {
+  const idx = groupOrder.indexOf(group);
+  if (idx === -1 || idx >= groupOrder.length-1) return;
+  [groupOrder[idx], groupOrder[idx+1]] = [groupOrder[idx+1], groupOrder[idx]];
+  saveToStorage();
+  updateGroupOrderList();
+  updateGroupsList();
+  updateOpDaysList();
+}
+function moveGroupToPosition(group) {
+  const input = document.getElementById(`groupPos_${group}`);
+  let newPos = parseInt(input.value);
+  if (isNaN(newPos) || newPos < 1 || newPos > groupOrder.length) {
+    alert(currentLang === 'el' ? 'Μη έγκυρη θέση.' : 'Invalid position.');
+    return;
+  }
+  const currentIdx = groupOrder.indexOf(group);
+  if (currentIdx === newPos-1) return;
+  groupOrder.splice(currentIdx, 1);
+  groupOrder.splice(newPos-1, 0, group);
+  saveToStorage();
+  updateGroupOrderList();
+  updateGroupsList();
+  updateOpDaysList();
+}
+function updateOrderGroupSelect() {
+  const select = document.getElementById('orderGroupSelect');
+  select.innerHTML = groupOrder.map(g => `<option value="${g}">${g}</option>`).join('');
+  if (groups.length > 0) loadGroupOrder(); else document.getElementById('orderListContainer').innerHTML = '';
+}
+function loadGroupOrder() {
+  const group = document.getElementById('orderGroupSelect').value;
+  if (!group) return;
+  updateOrderMembersTable(group);
+}
+function updateOrderMembersTable(group) {
+  const container = document.getElementById('orderListContainer');
+  if (!container) return;
+  const membersList = groupMembers[group] || [];
+  let html = '<table id="orderMembersTable" class="drag-table"><thead><tr><th>#</th><th>Μέλος</th><th></th></tr></thead><tbody>';
+  membersList.forEach((member, index) => {
+    html += `<tr draggable="true">
+      <td class="num">${index+1}</td>
+      <td>${member}</td>
+      <td>
+        <button onclick="moveMemberUp('${group}', '${member}')">⬆️</button>
+        <button onclick="moveMemberDown('${group}', '${member}')">⬇️</button>
+        <button onclick="moveMemberToPositionPrompt('${group}', '${member}')">Μετ</button>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+  attachDragDrop('orderMembersTable', () => saveGroupMemberOrder(group));
+}
+function saveGroupMemberOrder(group) {
+  const newOrder = [];
+  document.querySelectorAll("#orderMembersTable tbody tr").forEach(row => {
+    const name = row.cells[1]?.innerText;
+    if (name) newOrder.push(name);
+  });
+  groupMembers[group] = newOrder;
+  saveToStorage();
+}
+function moveMemberUp(group, member) {
+  const list = groupMembers[group]; const idx = list.indexOf(member);
+  if (idx <= 0) return;
+  [list[idx-1], list[idx]] = [list[idx], list[idx-1]];
+  saveToStorage(); updateOrderMembersTable(group); updateTab7Dropdowns();
+}
+function moveMemberDown(group, member) {
+  const list = groupMembers[group]; const idx = list.indexOf(member);
+  if (idx === -1 || idx >= list.length-1) return;
+  [list[idx], list[idx+1]] = [list[idx+1], list[idx]];
+  saveToStorage(); updateOrderMembersTable(group); updateTab7Dropdowns();
+}
+function moveMemberToPositionPrompt(group, member) {
+  const newPos = prompt(currentLang === 'el' ? 'Νέα θέση:' : 'New position:');
+  if (newPos === null) return;
+  const pos = parseInt(newPos);
+  const list = groupMembers[group];
+  if (isNaN(pos) || pos < 1 || pos > list.length) {
+    alert(currentLang === 'el' ? 'Μη έγκυρη θέση.' : 'Invalid position.');
+    return;
+  }
+  const currentIdx = list.indexOf(member);
+  if (currentIdx === pos-1) return;
+  list.splice(currentIdx, 1);
+  list.splice(pos-1, 0, member);
+  saveToStorage();
+  updateOrderMembersTable(group);
+  updateTab7Dropdowns();
+}
+function updateTab7Dropdowns() {
+  const memberSelects = ['swapMember1', 'swapMember2', 'removeMember', 'addMember'];
+  memberSelects.forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = members.sort().map(m => `<option value="${m}">${m}</option>`).join('');
+  });
+  const groupSelect = document.getElementById('addGroup');
+  if (groupSelect) groupSelect.innerHTML = groupOrder.map(g => `<option value="${g}">${g}</option>`).join('');
+  clearMessages();
+}
+function clearMessages() {
+  document.getElementById('swapMessages').innerHTML = '';
+  document.getElementById('removeMessages').innerHTML = '';
+  document.getElementById('addMessages').innerHTML = '';
+  document.getElementById('applySwapBtn').disabled = true;
+  document.getElementById('applyRemoveBtn').disabled = true;
+  document.getElementById('applyAddBtn').disabled = true;
+}
+function getCurrentYearMonth() {
+  const y = parseInt(document.getElementById('year').value);
+  const m = parseInt(document.getElementById('month').value);
+  return { year: y, month: m };
+}
+let swapCheckResult = null;
+function checkSwap() {
+  const member1 = document.getElementById('swapMember1').value;
+  const day1 = parseInt(document.getElementById('swapDay1').value);
+  const member2 = document.getElementById('swapMember2').value;
+  const day2 = parseInt(document.getElementById('swapDay2').value);
+  const msgDiv = document.getElementById('swapMessages');
+  const applyBtn = document.getElementById('applySwapBtn');
+  if (!lastSchedule) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Δεν υπάρχει πρόγραμμα. Δημιουργήστε πρώτα ένα πρόγραμμα.' : '❌ No schedule. Generate one first.';
+    applyBtn.disabled = true;
+    return;
+  }
+  if (isNaN(day1) || isNaN(day2) || day1 < 1 || day1 > lastDays || day2 < 1 || day2 > lastDays) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Μη έγκυρη ημέρα.' : '❌ Invalid day.';
+    applyBtn.disabled = true;
+    return;
+  }
+  if (member1 === member2 && day1 === day2) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Τα ίδια μέλος και ημέρα.' : '❌ Same member and day.';
+    applyBtn.disabled = true;
+    return;
+  }
+  const assignment1 = lastSchedule.find(item => item.member === member1 && item.day === day1);
+  const assignment2 = lastSchedule.find(item => item.member === member2 && item.day === day2);
+  if (!assignment1) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member1} δεν έχει υπηρεσία την ημέρα ${day1}.` : `❌ Member ${member1} has no service on day ${day1}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  if (!assignment2) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member2} δεν έχει υπηρεσία την ημέρα ${day2}.` : `❌ Member ${member2} has no service on day ${day2}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  if (memberHasAbsence(member1, day2, lastYear, lastMonth)) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member1} έχει απουσία (${getAbsenceType(member1, day2, lastYear, lastMonth)}) την ημέρα ${day2}.` : `❌ Member ${member1} has absence (${getAbsenceType(member1, day2, lastYear, lastMonth)}) on day ${day2}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  if (memberHasAbsence(member2, day1, lastYear, lastMonth)) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member2} έχει απουσία (${getAbsenceType(member2, day1, lastYear, lastMonth)}) την ημέρα ${day1}.` : `❌ Member ${member2} has absence (${getAbsenceType(member2, day1, lastYear, lastMonth)}) on day ${day1}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  swapCheckResult = { member1, day1, group1: assignment1.group, member2, day2, group2: assignment2.group };
+  msgDiv.innerHTML = (currentLang === 'el' ?
+    `✅ Το μέλος ${member1} έχει υπηρεσία (${assignment1.group}) την ${day1}.<br>✅ Το μέλος ${member2} έχει υπηρεσία (${assignment2.group}) την ${day2}.<br>Μπορείτε να προχωρήσετε σε αλλαγή.` :
+    `✅ Member ${member1} has service (${assignment1.group}) on ${day1}.<br>✅ Member ${member2} has service (${assignment2.group}) on ${day2}.<br>You can proceed with the swap.`);
+  applyBtn.disabled = false;
+}
+function applySwap() {
+  if (!swapCheckResult) return;
+  const { member1, day1, group1, member2, day2, group2 } = swapCheckResult;
+  const { year, month } = getCurrentYearMonth();
+  if (!groupMembers[group2].includes(member1)) groupMembers[group2].push(member1);
+  if (!groupMembers[group1].includes(member2)) groupMembers[group1].push(member2);
+  lastSchedule = lastSchedule.map(item => {
+    if (item.member === member1 && item.day === day1) return { member: member1, day: day1, group: group2 };
+    if (item.member === member2 && item.day === day2) return { member: member2, day: day2, group: group1 };
+    return item;
+  });
+  const date1 = new Date(year, month-1, day1);
+  const date2 = new Date(year, month-1, day2);
+  const extraHolidays = parseDayRanges(document.getElementById('extraHolidays').value, lastDays);
+  const isHoliday1 = isHoliday(date1, extraHolidays);
+  const isHoliday2 = isHoliday(date2, extraHolidays);
+  lastStats[member1].total--; if (isHoliday1) lastStats[member1].holiday--; else lastStats[member1].weekday--;
+  lastStats[member1].total++; if (isHoliday2) lastStats[member1].holiday++; else lastStats[member1].weekday++;
+  lastStats[member2].total--; if (isHoliday2) lastStats[member2].holiday--; else lastStats[member2].weekday--;
+  lastStats[member2].total++; if (isHoliday1) lastStats[member2].holiday++; else lastStats[member2].weekday++;
+  saveMonthlyStats(year, month, lastStats);
+  saveToStorage();
+  updateGroupMembershipList();
+  updateOrderGroupSelect();
+  updateTab7Dropdowns();
+  updateSeniorityTable();
+  const groupColors = {};
+  groups.forEach((g, idx) => groupColors[g] = GROUP_COLORS[idx % GROUP_COLORS.length]);
+  lastGroupColors = groupColors;
+  let holidayDays = new Set();
+  for (let d = 1; d <= lastDays; d++) {
+    let date = new Date(year, month-1, d);
+    if (isHoliday(date, extraHolidays)) holidayDays.add(d);
+  }
+  lastHolidaysSet = holidayDays;
+  renderMatrixByGroup(lastSchedule, groups, groupMembers, lastDays, holidayDays, groupColors, groupOpDays);
+  saveCurrentScheduleState();
+  clearMessages();
+  swapCheckResult = null;
+  alert(currentLang === 'el' ? 'Η αλλαγή εφαρμόστηκε επιτυχώς!' : 'Swap applied successfully!');
+}
+let removeCheckResult = null;
+function checkRemove() {
+  const member = document.getElementById('removeMember').value;
+  const day = parseInt(document.getElementById('removeDay').value);
+  const msgDiv = document.getElementById('removeMessages');
+  const applyBtn = document.getElementById('applyRemoveBtn');
+  if (!lastSchedule) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Δεν υπάρχει πρόγραμμα.' : '❌ No schedule.';
+    applyBtn.disabled = true;
+    return;
+  }
+  if (isNaN(day) || day < 1 || day > lastDays) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Μη έγκυρη ημέρα.' : '❌ Invalid day.';
+    applyBtn.disabled = true;
+    return;
+  }
+  const assignment = lastSchedule.find(item => item.member === member && item.day === day);
+  if (!assignment) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member} δεν έχει υπηρεσία την ημέρα ${day}.` : `❌ Member ${member} has no service on day ${day}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  removeCheckResult = { member, day, group: assignment.group };
+  msgDiv.innerHTML = (currentLang === 'el' ?
+    `✅ Το μέλος ${member} έχει υπηρεσία (${assignment.group}) την ${day}. Μπορείτε να την αφαιρέσετε.` :
+    `✅ Member ${member} has service (${assignment.group}) on ${day}. You can remove it.`);
+  applyBtn.disabled = false;
+}
+function applyRemove() {
+  if (!removeCheckResult) return;
+  const { member, day, group } = removeCheckResult;
+  const { year, month } = getCurrentYearMonth();
+  lastSchedule = lastSchedule.filter(item => !(item.member === member && item.day === day));
+  const date = new Date(year, month-1, day);
+  const extraHolidays = parseDayRanges(document.getElementById('extraHolidays').value, lastDays);
+  const isHolidayFlag = isHoliday(date, extraHolidays);
+  lastStats[member].total--;
+  if (isHolidayFlag) lastStats[member].holiday--; else lastStats[member].weekday--;
+  saveMonthlyStats(year, month, lastStats);
+  const groupColors = {};
+  groups.forEach((g, idx) => groupColors[g] = GROUP_COLORS[idx % GROUP_COLORS.length]);
+  lastGroupColors = groupColors;
+  let holidayDays = new Set();
+  for (let d = 1; d <= lastDays; d++) {
+    let date = new Date(year, month-1, d);
+    if (isHoliday(date, extraHolidays)) holidayDays.add(d);
+  }
+  lastHolidaysSet = holidayDays;
+  renderMatrixByGroup(lastSchedule, groups, groupMembers, lastDays, holidayDays, groupColors, groupOpDays);
+  saveCurrentScheduleState();
+  clearMessages();
+  removeCheckResult = null;
+  alert(currentLang === 'el' ? 'Η υπηρεσία αφαιρέθηκε επιτυχώς!' : 'Service removed successfully!');
+}
+let addCheckResult = null;
+function checkAdd() {
+  const member = document.getElementById('addMember').value;
+  const group = document.getElementById('addGroup').value;
+  const day = parseInt(document.getElementById('addDay').value);
+  const msgDiv = document.getElementById('addMessages');
+  const applyBtn = document.getElementById('applyAddBtn');
+  if (!lastSchedule) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Δεν υπάρχει πρόγραμμα.' : '❌ No schedule.';
+    applyBtn.disabled = true;
+    return;
+  }
+  if (isNaN(day) || day < 1 || day > lastDays) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Μη έγκυρη ημέρα.' : '❌ Invalid day.';
+    applyBtn.disabled = true;
+    return;
+  }
+  if (!group) {
+    msgDiv.innerHTML = currentLang === 'el' ? '❌ Επιλέξτε ομάδα.' : '❌ Select a group.';
+    applyBtn.disabled = true;
+    return;
+  }
+  const alreadyInGroup = groupMembers[group] && groupMembers[group].includes(member);
+  const existing = lastSchedule.find(item => item.member === member && item.day === day);
+  if (existing) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member} έχει ήδη υπηρεσία (${existing.group}) την ημέρα ${day}.` : `❌ Member ${member} already has service (${existing.group}) on day ${day}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  if (memberHasAbsence(member, day, lastYear, lastMonth)) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member} έχει απουσία (${getAbsenceType(member, day, lastYear, lastMonth)}) την ημέρα ${day}.` : `❌ Member ${member} has absence (${getAbsenceType(member, day, lastYear, lastMonth)}) on day ${day}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  const currentTotal = lastStats[member] ? lastStats[member].total : 0;
+  const limit = memberLimits[member] || 31;
+  if (currentTotal >= limit) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Το μέλος ${member} έχει φτάσει το όριο υπηρεσιών (${limit}).` : `❌ Member ${member} has reached the service limit (${limit}).`);
+    applyBtn.disabled = true;
+    return;
+  }
+  if (!groupOpDays[group] || !groupOpDays[group].has(day)) {
+    msgDiv.innerHTML = (currentLang === 'el' ? `❌ Η ομάδα ${group} δεν λειτουργεί την ημέρα ${day}.` : `❌ Group ${group} does not operate on day ${day}.`);
+    applyBtn.disabled = true;
+    return;
+  }
+  addCheckResult = { member, group, day, alreadyInGroup };
+  let msg = (currentLang === 'el' ?
+    `✅ Μπορείτε να προσθέσετε υπηρεσία για το μέλος ${member} στην ομάδα ${group} την ημέρα ${day}.` :
+    `✅ You can add service for member ${member} in group ${group} on day ${day}.`);
+  if (!alreadyInGroup) msg += (currentLang === 'el' ? `\n⚠️ Το μέλος θα προστεθεί αυτόματα στην ομάδα ${group}.` : `\n⚠️ Member will be automatically added to group ${group}.`);
+  msgDiv.innerHTML = msg;
+  applyBtn.disabled = false;
+}
+function applyAdd() {
+  if (!addCheckResult) return;
+  const { member, group, day, alreadyInGroup } = addCheckResult;
+  const { year, month } = getCurrentYearMonth();
+  if (!alreadyInGroup && !groupMembers[group].includes(member)) {
+    groupMembers[group].push(member);
+  }
+  lastSchedule.push({ day, group, member });
+  const date = new Date(year, month-1, day);
+  const extraHolidays = parseDayRanges(document.getElementById('extraHolidays').value, lastDays);
+  const isHolidayFlag = isHoliday(date, extraHolidays);
+  lastStats[member].total++;
+  if (isHolidayFlag) lastStats[member].holiday++; else lastStats[member].weekday++;
+  saveMonthlyStats(year, month, lastStats);
+  if (!alreadyInGroup) saveToStorage();
+  if (!alreadyInGroup) {
+    updateGroupMembershipList();
+    updateOrderGroupSelect();
+    updateTab7Dropdowns();
+    updateSeniorityTable();
+  }
+  const groupColors = {};
+  groups.forEach((g, idx) => groupColors[g] = GROUP_COLORS[idx % GROUP_COLORS.length]);
+  lastGroupColors = groupColors;
+  let holidayDays = new Set();
+  for (let d = 1; d <= lastDays; d++) {
+    let date = new Date(year, month-1, d);
+    if (isHoliday(date, extraHolidays)) holidayDays.add(d);
+  }
+  lastHolidaysSet = holidayDays;
+  renderMatrixByGroup(lastSchedule, groups, groupMembers, lastDays, holidayDays, groupColors, groupOpDays);
+  saveCurrentScheduleState();
+  clearMessages();
+  addCheckResult = null;
+  alert(currentLang === 'el' ? 'Η υπηρεσία προστέθηκε επιτυχώς!' : 'Service added successfully!');
+}
+function updateSeniorityTable() {
+  const container = document.getElementById('seniorityListContainer');
+  if (!container) return;
+  let html = '<table id="seniorityTable" class="drag-table"><thead><tr><th>#</th><th>Μέλος</th><th></th></tr></thead><tbody>';
+  seniorityOrder.forEach((member, index) => {
+    html += `<tr draggable="true">
+      <td class="num">${index+1}</td>
+      <td>${member}</td>
+      <td>
+        <button onclick="moveSeniorityUp('${member}')">⬆️</button>
+        <button onclick="moveSeniorityDown('${member}')">⬇️</button>
+        <button onclick="moveSeniorityToPositionPrompt('${member}')">Μετ</button>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+  attachDragDrop('seniorityTable', saveSeniorityOrder);
+}
+function saveSeniorityOrder() {
+  const newOrder = [];
+  document.querySelectorAll("#seniorityTable tbody tr").forEach(row => {
+    const name = row.cells[1]?.innerText;
+    if (name) newOrder.push(name);
+  });
+  seniorityOrder = newOrder;
+  saveToStorage();
+}
+function moveSeniorityUp(member) {
+  const idx = seniorityOrder.indexOf(member);
+  if (idx <= 0) return;
+  [seniorityOrder[idx-1], seniorityOrder[idx]] = [seniorityOrder[idx], seniorityOrder[idx-1]];
+  saveToStorage(); updateSeniorityTable();
+}
+function moveSeniorityDown(member) {
+  const idx = seniorityOrder.indexOf(member);
+  if (idx === -1 || idx >= seniorityOrder.length-1) return;
+  [seniorityOrder[idx], seniorityOrder[idx+1]] = [seniorityOrder[idx+1], seniorityOrder[idx]];
+  saveToStorage(); updateSeniorityTable();
+}
+function moveSeniorityToPositionPrompt(member) {
+  const newPos = prompt(currentLang === 'el' ? 'Νέα θέση:' : 'New position:');
+  if (newPos === null) return;
+  const pos = parseInt(newPos);
+  if (isNaN(pos) || pos < 1 || pos > seniorityOrder.length) {
+    alert(currentLang === 'el' ? 'Μη έγκυρη θέση.' : 'Invalid position.');
+    return;
+  }
+  const currentIdx = seniorityOrder.indexOf(member);
+  if (currentIdx === pos-1) return;
+  seniorityOrder.splice(currentIdx, 1);
+  seniorityOrder.splice(pos-1, 0, member);
+  saveToStorage();
+  updateSeniorityTable();
+}
+function generateAbsenceReport() {
+  const absenceTypes = ['ΑΔΕΙΑ','ΕΥ','ΦΠ','ΝΟΣ','ΣΧΟΛΕΙΟ','ΠΑΡΕΛΑΣΗ','ΙΠΒΑΞ','ΚΕΞ','ΛΑΦΑ','ΣΠΑ'];
+  let data = {};
+  members.forEach(m => {
+    data[m] = {};
+    for (let t of absenceTypes) data[m][t] = 0;
+  });
+  const year = parseInt(document.getElementById('reportYear').value);
+  for (let m of members) {
+    for (let type of absenceTypes) {
+      let total = 0;
+      for (let mon = 1; mon <= 12; mon++) {
+        if (memberAbsences[year] && memberAbsences[year][mon] && memberAbsences[year][mon][m] && memberAbsences[year][mon][m][type]) {
+          total += memberAbsences[year][mon][m][type].size;
+        }
+      }
+      data[m][type] = total;
+    }
+  }
+  let html = '<h4>Μέλη με απουσίες</h4>';
+  html += '<div style="overflow-x:auto;">';
+  html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:600px;"><thead><tr><th>Μέλος</th>';
+  for (let type of absenceTypes) html += `<th>${type}</th>`;
+  html += '</tr></thead><tbody>';
+  members.sort().forEach(m => {
+    let hasAny = false;
+    for (let type of absenceTypes) if (data[m][type] > 0) hasAny = true;
+    if (hasAny) {
+      html += `<tr><td>${m}</td>`;
+      for (let type of absenceTypes) html += `<td>${data[m][type]}</td>`;
+      html += '</tr>';
+    }
+  });
+  html += '</tbody></table></div>';
+  html += '<h4>Μέλη χωρίς απουσίες</h4>';
+  html += '<div style="overflow-x:auto;">';
+  html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:600px;"><thead><tr><th>Μέλος</th>';
+  for (let type of absenceTypes) html += `<th>${type}</th>`;
+  html += '</tr></thead><tbody>';
+  members.sort().forEach(m => {
+    let hasAny = false;
+    for (let type of absenceTypes) if (data[m][type] > 0) hasAny = true;
+    if (!hasAny) {
+      html += `<tr><td>${m}</td>`;
+      for (let type of absenceTypes) html += `<td>0</td>`;
+      html += '</tr>';
+    }
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('absenceReportTable').innerHTML = html;
+}
+function showOfficialHolidaysTab10() {
+  const year = parseInt(document.getElementById('holidayYear10').value);
+  const month = parseInt(document.getElementById('holidayMonth10').value);
+  const extraHolidaysInput = document.getElementById('extraHolidays').value;
+  const extraHolidays = parseDayRanges(extraHolidaysInput, daysInMonth(year, month));
+  const days = daysInMonth(year, month);
+  let schedule, stats;
+  if (lastYear === year && lastMonth === month && lastSchedule) {
+    schedule = lastSchedule; stats = lastStats;
+  } else {
+    const result = generateSchedule(year, month, groups, groupMembers, groupOpDays, members, memberAbsences, memberLimits, extraHolidays);
+    schedule = result.schedule; stats = result.stats;
+  }
+  const officialHolidayDays = [];
+  for (let d = 1; d <= days; d++) {
+    const date = new Date(year, month-1, d);
+    if (isHoliday(date, extraHolidays)) officialHolidayDays.push(d);
+  }
+  const holidayServices = schedule.filter(item => officialHolidayDays.includes(item.day));
+  let html = '<h3>Υπηρεσίες σε αργίες (σταθερές + extra)</h3>';
+  if (holidayServices.length === 0) {
+    html += '<p>Δεν υπάρχουν υπηρεσίες σε αργίες για αυτόν τον μήνα.</p>';
+  } else {
+    html += '<div style="overflow-x:auto;">';
+    html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:500px;"><thead><tr><th>Μέλος</th><th>Ημέρα</th><th>Μήνας</th><th>Ομάδα</th></tr></thead><tbody>';
+    holidayServices.forEach(item => {
+      html += `<tr><td>${item.member}</td><td>${item.day}</td><td>${month}</td><td>${item.group}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+  const yearlyStats = loadYearlyStats(year);
+  html += '<h3>Σύνολο υπηρεσιών σε αργίες ανά μέλος για το έτος</h3>';
+  if (Object.keys(yearlyStats).length === 0) {
+    html += '<p>Δεν υπάρχουν ετήσια στατιστικά.</p>';
+  } else {
+    html += '<div style="overflow-x:auto;">';
+    html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:400px;"><thead><tr><th>Μέλος</th><th>Σύνολο αργιών</th></tr></thead><tbody>';
+    seniorityOrder.forEach(member => {
+      let total = 0;
+      for (let m = 1; m <= 12; m++) {
+        if (yearlyStats[m] && yearlyStats[m][member]) total += yearlyStats[m][member].holiday;
+      }
+      html += `<tr><td>${member}</td><td>${total}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+  document.getElementById('holidayReport10').innerHTML = html;
+}
+function showCustomHolidays() {
+  const year = parseInt(document.getElementById('customHolidayYear').value);
+  const month = parseInt(document.getElementById('customHolidayMonth').value);
+  const daysInput = document.getElementById('customHolidayDays').value.trim();
+  if (!daysInput) {
+    alert(currentLang === 'el' ? 'Παρακαλώ εισάγετε ημέρες.' : 'Please enter days.');
+    return;
+  }
+  const customDays = parseDayRanges(daysInput, daysInMonth(year, month));
+  const extraHolidaysInput = document.getElementById('extraHolidays').value;
+  const extraHolidays = parseDayRanges(extraHolidaysInput, daysInMonth(year, month));
+  const days = daysInMonth(year, month);
+  let schedule, stats;
+  if (lastYear === year && lastMonth === month && lastSchedule) {
+    schedule = lastSchedule; stats = lastStats;
+  } else {
+    const result = generateSchedule(year, month, groups, groupMembers, groupOpDays, members, memberAbsences, memberLimits, extraHolidays);
+    schedule = result.schedule; stats = result.stats;
+  }
+  const customDaysArray = Array.from(customDays);
+  const customServices = schedule.filter(item => customDaysArray.includes(item.day));
+  let html = '<h3>Υπηρεσίες στις επιλεγμένες ημέρες</h3>';
+  if (customServices.length === 0) {
+    html += '<p>Δεν υπάρχουν υπηρεσίες για αυτές τις ημέρες.</p>';
+  } else {
+    html += '<div style="overflow-x:auto;">';
+    html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:500px;"><thead><tr><th>Μέλος</th><th>Ημέρα</th><th>Μήνας</th><th>Ομάδα</th></tr></thead><tbody>';
+    customServices.forEach(item => {
+      html += `<tr><td>${item.member}</td><td>${item.day}</td><td>${month}</td><td>${item.group}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+  const yearlyStats = loadYearlyStats(year);
+  html += '<h3>Σύνολο υπηρεσιών (όλων) ανά μέλος για το έτος</h3>';
+  if (Object.keys(yearlyStats).length === 0) {
+    html += '<p>Δεν υπάρχουν ετήσια στατιστικά.</p>';
+  } else {
+    html += '<div style="overflow-x:auto;">';
+    html += '<table border="1" style="border-collapse:collapse; width:100%; min-width:400px;"><thead><tr><th>Μέλος</th><th>Σύνολο υπηρεσιών</th></tr></thead><tbody>';
+    seniorityOrder.forEach(member => {
+      let total = 0;
+      for (let m = 1; m <= 12; m++) {
+        if (yearlyStats[m] && yearlyStats[m][member]) total += yearlyStats[m][member].total;
+      }
+      html += `<tr><td>${member}</td><td>${total}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+  document.getElementById('customHolidayReport').innerHTML = html;
+}
+// ---- Νέα λειτουργία για επεξεργασία ετήσιων στατιστικών ----
+function showEditYearlyStats() {
+  const year = parseInt(document.getElementById('statsYear').value);
+  const yearlyStats = loadYearlyStats(year);
+  const months = [1,2,3,4,5,6,7,8,9,10,11,12];
+  let html = '<h4>Επεξεργασία υπηρεσιών ανά μήνα</h4>';
+  html += '<div style="overflow-x:auto;"><table border="1"><thead><tr><th>Μήνας</th><th>Ενέργειες</th></tr></thead><tbody>';
+  months.forEach(m => {
+    html += `<tr><td>${m}</td><td><button onclick="editMonthStats(${year}, ${m})">Επεξεργασία</button> <button onclick="deleteMonthStats(${year}, ${m})" class="danger">Διαγραφή μήνα</button></td></tr>`;
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('yearlyEditPanel').innerHTML = html;
+  document.getElementById('yearlyEditPanel').style.display = 'block';
+}
+function editMonthStats(year, month) {
+  const stats = loadYearlyStats(year)[month] || {};
+  let html = `<h5>Επεξεργασία στατιστικών για ${month}/${year}</h5>`;
+  html += '<div style="overflow-x:auto;"><table border="1"><thead><tr><th>Μέλος</th><th>Σύνολο υπηρεσιών</th></tr></thead><tbody>';
+  seniorityOrder.forEach(member => {
+    const val = stats[member] ? stats[member].total : 0;
+    html += `<tr><td>${member}</td><td><input type="number" id="edit_${member}" value="${val}" min="0" style="width:80px;"></td></tr>`;
+  });
+  html += `</tbody></table><button onclick="saveMonthStats(${year}, ${month})">Αποθήκευση αλλαγών</button></div>`;
+  document.getElementById('yearlyEditPanel').innerHTML = html;
+}
+function saveMonthStats(year, month) {
+  const newStats = {};
+  seniorityOrder.forEach(member => {
+    const val = parseInt(document.getElementById(`edit_${member}`).value) || 0;
+    newStats[member] = { total: val, holiday: 0, weekday: val };
+  });
+  let yearly = loadYearlyStats(year);
+  yearly[month] = newStats;
+  localStorage.setItem(`garas_yearly_stats_${year}`, JSON.stringify(yearly));
+  showYearlyStats();
+  showEditYearlyStats();
+  alert('Αποθηκεύτηκαν οι χειροκίνητες υπηρεσίες για τον μήνα.');
+}
+function deleteMonthStats(year, month) {
+  if (!confirm(`Διαγραφή στατιστικών για ${month}/${year};`)) return;
+  let yearly = loadYearlyStats(year);
+  delete yearly[month];
+  localStorage.setItem(`garas_yearly_stats_${year}`, JSON.stringify(yearly));
+  showYearlyStats();
+  showEditYearlyStats();
+}
+// ---- Υπολογισμός σκορ για την καρτέλα Δικαιοσύνης ----
+function computeCurrentScores() {
+  if (!lastSchedule || !lastStats) {
+    document.getElementById('scoresTable').innerHTML = '<p>Δεν υπάρχει πρόγραμμα. Δημιουργήστε πρώτα ένα πρόγραμμα.</p>';
+    return;
+  }
+  const stats = lastStats;
+  let totalServices = 0, memberCount = 0;
+  for (let m in stats) { totalServices += stats[m].total; memberCount++; }
+  let target = totalServices / (memberCount || 1);
+  let maxTotal = Math.max(...Object.values(stats).map(s=>s.total));
+  let maxSeniority = seniorityOrder.length - 1;
+  const limitGroups = {};
+  members.forEach(m => { const l = memberLimits[m] || 31; if (!limitGroups[l]) limitGroups[l] = []; limitGroups[l].push(m); });
+  const sortedLimits = Object.keys(limitGroups).map(Number).sort((a,b)=>a-b);
+  let currentMax = 0;
+  const maxServiceForLowerLimits = {};
+  sortedLimits.forEach(lim => {
+    maxServiceForLowerLimits[lim] = currentMax;
+    let groupMax = 0;
+    limitGroups[lim].forEach(m => { if (stats[m]) groupMax = Math.max(groupMax, stats[m].total); });
+    currentMax = Math.max(currentMax, groupMax);
+  });
+  let html = '<div style="overflow-x:auto;"><table border="1"><thead><tr><th>Μέλος</th><th>Σύνολο</th><th>Όριο</th><th>Σκορ (χαμηλότερο = καλύτερο)</th></tr></thead><tbody>';
+  seniorityOrder.forEach(member => {
+    let totalNorm = stats[member].total / maxTotal;
+    let seniorityIndex = seniorityOrder.indexOf(member);
+    let seniorityNorm = seniorityIndex / maxSeniority;
+    let deviation = stats[member].total - target;
+    let score = 0;
+    score += fairnessWeights.total * totalNorm;
+    score += fairnessWeights.seniority * seniorityNorm;
+    score += fairnessWeights.balance * deviation;
+    const limit = memberLimits[member] || 31;
+    const maxLower = maxServiceForLowerLimits[limit] || 0;
+    if (stats[member].total < maxLower) score += fairnessWeights.limitFairness * (maxLower - stats[member].total);
+    html += `<tr><td>${member}</td><td>${stats[member].total}</td><td>${limit}</td><td>${score.toFixed(2)}</td></tr>`;
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('scoresTable').innerHTML = html;
+}
+// ---- Διαχείριση απουσιών ανά μήνα ----
+function loadAbsencesForMonth() {
+  const year = parseInt(document.getElementById('absenceYear').value);
+  const month = parseInt(document.getElementById('absenceMonth').value);
+  const container = document.getElementById('absencesList');
+  container.innerHTML = '';
+  members.forEach(m => {
+    const abs = memberAbsences[year]?.[month]?.[m];
+    if (!abs) return;
+    for (let type in abs) {
+      const days = Array.from(abs[type]).sort();
+      if (days.length === 0) continue;
+      const div = document.createElement('div');
+      div.className = 'list-item';
+      let daysHtml = '';
+      days.forEach(d => {
+        daysHtml += `<span>${d} <button class="danger" onclick="removeAbsence('${m}', '${type}', ${d}, ${year}, ${month})">x</button> </span>`;
+      });
+      div.innerHTML = `<span>${m} (${type}): </span>${daysHtml}`;
+      container.appendChild(div);
+    }
+  });
+}
+function addAbsence() {
+  const year = parseInt(document.getElementById('absenceYear').value);
+  const month = parseInt(document.getElementById('absenceMonth').value);
+  const member = document.getElementById('memberSelectAbsence').value;
+  const type = document.getElementById('absenceTypeSelect').value;
+  const expr = document.getElementById('absenceInput').value.trim();
+  if (!member || !type) return;
+  const daysSet = parseDayRanges(expr, daysInMonth(year, month));
+  daysSet.forEach(d => {
+    const set = getAbsenceSet(member, year, month, type);
+    set.add(d);
+  });
+  document.getElementById('absenceInput').value = '';
+  saveToStorage();
+  loadAbsencesForMonth();
+}
+function removeAbsence(member, type, day, year, month) {
+  if (memberAbsences[year]?.[month]?.[member]?.[type]) {
+    memberAbsences[year][month][member][type].delete(day);
+    if (memberAbsences[year][month][member][type].size === 0) {
+      delete memberAbsences[year][month][member][type];
+    }
+    saveToStorage();
+    loadAbsencesForMonth();
+  }
+}
+// ---- Υπόλοιπες βοηθητικές για αποθήκευση/φόρτωση προγραμμάτων ----
+function loadAllSchedules() {
+  const s = localStorage.getItem(SCHEDULES_KEY);
+  if (s) {
+    try {
+      const parsed = JSON.parse(s);
+      savedSchedules = {};
+      for (let key in parsed) {
+        savedSchedules[key] = parsed[key];
+        if (savedSchedules[key].holidayDays) {
+          savedSchedules[key].holidayDays = new Set(savedSchedules[key].holidayDays);
+        }
+      }
+    } catch(e) { console.error('Error loading schedules', e); }
+  }
+}
+function saveAllSchedules() {
+  let toStore = {};
+  for (let key in savedSchedules) {
+    toStore[key] = { ...savedSchedules[key] };
+    if (toStore[key].holidayDays instanceof Set) {
+      toStore[key].holidayDays = Array.from(toStore[key].holidayDays);
+    }
+  }
+  localStorage.setItem(SCHEDULES_KEY, JSON.stringify(toStore));
+}
+function saveCurrentScheduleState() {
+  let y = parseInt(document.getElementById("year").value);
+  let m = parseInt(document.getElementById("month").value);
+  if (!lastSchedule) return;
+  const extraHolidaysInput = document.getElementById("extraHolidays").value;
+  savedSchedules[`${y}-${m}`] = {
+    schedule: lastSchedule,
+    stats: lastStats,
+    days: lastDays,
+    holidayDays: lastHolidaysSet,
+    groupColors: lastGroupColors,
+    extraHolidays: extraHolidaysInput
+  };
+  saveAllSchedules();
+}
+function loadScheduleForYearMonth(y, m) {
+  const key = `${y}-${m}`;
+  const state = savedSchedules[key];
+  if (state) {
+    lastSchedule = state.schedule;
+    lastStats = state.stats;
+    lastDays = state.days;
+    lastHolidaysSet = state.holidayDays;
+    lastGroupColors = state.groupColors;
+    document.getElementById("extraHolidays").value = state.extraHolidays || '';
+    renderMatrixByGroup(lastSchedule, groups, groupMembers, lastDays, lastHolidaysSet, lastGroupColors, groupOpDays);
+    return true;
+  }
+  return false;
+}
+function onYearMonthChange() {
+  let y = parseInt(document.getElementById("year").value);
+  let m = parseInt(document.getElementById("month").value);
+  loadScheduleForYearMonth(y, m);
+}
+function loadLastSavedSchedule() {
+  let y = parseInt(document.getElementById("year").value);
+  let m = parseInt(document.getElementById("month").value);
+  const loaded = loadScheduleForYearMonth(y, m);
+  if (!loaded) {
+    alert(currentLang === 'el' ? 'Δεν υπάρχει αποθηκευμένο πρόγραμμα για αυτόν τον μήνα.' : 'No saved schedule for this month.');
+  }
+}
+function clearAllData() {
+  if (confirm(currentLang === 'el' ? 'Θα διαγραφούν όλες οι ομάδες και τα μέλη. Συνέχεια;' : 'All groups and members will be deleted. Continue?')) {
+    groups = [];
+    members = [];
+    groupMembers = {};
+    groupOpDays = {};
+    memberLimits = {};
+    memberAbsences = {};
+    seniorityOrder = [];
+    groupOrder = [];
+    memberDisplayOrder = [];
+    lastSchedule = null;
+    lastStats = null;
+    lastDays = null;
+    lastHolidaysSet = null;
+    lastGroupColors = null;
+    savedSchedules = {};
+    localStorage.removeItem(SCHEDULES_KEY);
+    saveToStorage();
+    init();
+  }
+}
+// ---- i18n βοηθητικές (minimal) ----
+function populateMonthSelect(lang) {
+  const monthSelect = document.getElementById('month');
+  const currentValue = monthSelect.value;
+  monthSelect.innerHTML = '';
+  for (let i = 1; i <= 12; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = i18n[lang][`month${i}`] || i;
+    monthSelect.appendChild(option);
+  }
+  if (currentValue >= 1 && currentValue <= 12) monthSelect.value = currentValue; else monthSelect.value = 1;
+  ['holidayMonth10', 'customHolidayMonth', 'absenceMonth'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) {
+      sel.innerHTML = '';
+      for (let i = 1; i <= 12; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i18n[lang][`month${i}`] || i;
+        sel.appendChild(option);
+      }
+      sel.value = 1;
+    }
+  });
+}
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+        el.placeholder = i18n[lang][key];
+      } else {
+        el.innerText = i18n[lang][key];
+      }
+    }
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (i18n[lang][key]) {
+      el.innerHTML = i18n[lang][key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[lang][key]) {
+      el.placeholder = i18n[lang][key];
+    }
+  });
+  populateMonthSelect(lang);
+  const toggleBtn = document.querySelector('.lang-toggle');
+  toggleBtn.innerText = lang === 'el' ? 'English' : 'Ελληνικά';
+}
+function toggleLanguage() {
+  setLanguage(currentLang === 'el' ? 'en' : 'el');
+}
+// ---- Αρχικοποίηση ----
+function init() {
+  loadFromStorage();
+  loadAllSchedules();
+  updateGroupsList();
+  updateMembersTable();
+  updateGroupMembershipList();
+  updateDropdowns();
+  updateOpDaysList();
+  updateLimitsTable();
+  updateOrderGroupSelect();
+  updateGroupOrderList();
+  updateTab7Dropdowns();
+  updateSeniorityTable();
+  updateOrderMembersTable();
+  setupMembershipListeners();
+  setLanguage(currentLang);
+  let y = parseInt(document.getElementById("year").value);
+  let m = parseInt(document.getElementById("month").value);
+  loadScheduleForYearMonth(y, m);
+  document.getElementById('absenceYear').value = y;
+  document.getElementById('absenceMonth').value = m;
+  loadAbsencesForMonth();
+}
+function addFlyInAnimations() {
+  const elements = document.querySelectorAll('button, .tab, .subtab, h1, h2, img, .panel, .help-box, .list-item, .group-header, .order-item, #tabContainer .tab');
+  const corners = ['animate-tl', 'animate-tr', 'animate-bl', 'animate-br'];
+  elements.forEach(el => {
+    if (el.classList.contains('animate-tl') || el.classList.contains('animate-tr') || 
+        el.classList.contains('animate-bl') || el.classList.contains('animate-br')) return;
+    const rand = corners[Math.floor(Math.random() * corners.length)];
+    el.classList.add(rand);
+    el.addEventListener('animationend', () => el.classList.remove(rand), { once: true });
+  });
+}
+window.addEventListener('DOMContentLoaded', () => {
+  init();
+  addFlyInAnimations();
+  document.getElementById('absenceYear').addEventListener('change', loadAbsencesForMonth);
+  document.getElementById('absenceMonth').addEventListener('change', loadAbsencesForMonth);
+});
+</script>
+</body>
+</html>
